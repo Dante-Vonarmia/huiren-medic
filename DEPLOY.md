@@ -34,10 +34,13 @@ git commit -m "Initial commit: 低代码平台演示项目"
 
 2. 推送到GitHub/GitLab：
 ```bash
-# 创建GitHub仓库后，推送代码
-git remote add origin https://github.com/你的用户名/huiren-medic-demo.git
-git branch -M main
-git push -u origin main
+# 已完成！代码已推送到：
+# https://github.com/Dante-Vonarmia/huiren-medic
+
+# 如需更新代码：
+git add .
+git commit -m "Update features"
+git push origin main
 ```
 
 ### 步骤2: 在Cloudflare Pages创建项目
