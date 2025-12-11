@@ -1,0 +1,157 @@
+{
+  "oa": {
+    "pending_tasks": 23,
+    "today_new": 8,
+    "week_completed": 45,
+    "tasks": [
+      {
+        "id": 1,
+        "title": "年度预算申请审批",
+        "type": "approval",
+        "status": "pending",
+        "created_at": "2025-12-10T09:30:00Z",
+        "assignee": "李四"
+      },
+      {
+        "id": 2,
+        "title": "供应商合作协议审批",
+        "type": "approval",
+        "status": "pending",
+        "created_at": "2025-12-11T10:15:00Z",
+        "assignee": "李四"
+      },
+      {
+        "id": 3,
+        "title": "员工转正申请",
+        "type": "hr",
+        "status": "completed",
+        "created_at": "2025-12-09T14:20:00Z",
+        "assignee": "周八"
+      }
+    ]
+  },
+  "erp": {
+    "month_orders": 156,
+    "total_amount": 12580000,
+    "pending_delivery": 28,
+    "orders": [
+      {
+        "id": "PO-20251201001",
+        "order_no": "PO-20251201001",
+        "amount": 250000,
+        "status": "pending",
+        "created_at": "2025-12-01T08:00:00Z",
+        "vendor": "上海原料供应商A"
+      },
+      {
+        "id": "PO-20251203002",
+        "order_no": "PO-20251203002",
+        "amount": 180000,
+        "status": "in_transit",
+        "created_at": "2025-12-03T10:30:00Z",
+        "vendor": "江苏包材供应商B"
+      },
+      {
+        "id": "PO-20251205003",
+        "order_no": "PO-20251205003",
+        "amount": 320000,
+        "status": "delivered",
+        "created_at": "2025-12-05T13:45:00Z",
+        "vendor": "广东设备供应商C"
+      }
+    ],
+    "trend": [
+      { "month": "8月", "amount": 10200000 },
+      { "month": "9月", "amount": 11500000 },
+      { "month": "10月", "amount": 11800000 },
+      { "month": "11月", "amount": 12300000 },
+      { "month": "12月", "amount": 12580000 }
+    ]
+  },
+  "crm": {
+    "total_customers": 458,
+    "month_new": 23,
+    "following_up": 67,
+    "customers": [
+      {
+        "id": 1,
+        "name": "浙江康复医院",
+        "industry": "医疗",
+        "status": "active",
+        "follow_up_date": "2025-12-15",
+        "owner": "张三"
+      },
+      {
+        "id": 2,
+        "name": "上海养生会所",
+        "industry": "保健",
+        "status": "negotiating",
+        "follow_up_date": "2025-12-12",
+        "owner": "张三"
+      },
+      {
+        "id": 3,
+        "name": "江苏连锁药店",
+        "industry": "零售",
+        "status": "active",
+        "follow_up_date": "2025-12-20",
+        "owner": "李四"
+      }
+    ],
+    "trend": [
+      { "month": "8月", "count": 398 },
+      { "month": "9月", "count": 415 },
+      { "month": "10月", "count": 428 },
+      { "month": "11月", "count": 442 },
+      { "month": "12月", "count": 458 }
+    ]
+  },
+  "wms": {
+    "total_stock": 8560,
+    "week_in": 420,
+    "week_out": 385,
+    "alert_count": 5,
+    "inventory": [
+      {
+        "id": 1,
+        "sku": "SKU-001",
+        "name": "肾宝片 (100盒/箱)",
+        "quantity": 1250,
+        "warehouse": "A库",
+        "alert_threshold": 300
+      },
+      {
+        "id": 2,
+        "sku": "SKU-002",
+        "name": "藿香正气水 (200瓶/箱)",
+        "quantity": 280,
+        "warehouse": "A库",
+        "alert_threshold": 300
+      },
+      {
+        "id": 3,
+        "sku": "SKU-003",
+        "name": "感冒灵颗粒 (50盒/箱)",
+        "quantity": 2150,
+        "warehouse": "B库",
+        "alert_threshold": 500
+      },
+      {
+        "id": 4,
+        "sku": "SKU-004",
+        "name": "板蓝根冲剂 (100袋/箱)",
+        "quantity": 1820,
+        "warehouse": "B库",
+        "alert_threshold": 400
+      },
+      {
+        "id": 5,
+        "sku": "SKU-005",
+        "name": "复合维生素片 (60瓶/箱)",
+        "quantity": 180,
+        "warehouse": "C库",
+        "alert_threshold": 200
+      }
+    ]
+  }
+}

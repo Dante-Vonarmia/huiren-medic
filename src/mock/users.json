@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "username": "zhang.wei",
+    "password": "Huiren@2025",
+    "realName": "张伟",
+    "role": "employee",
+    "department": "销售部",
+    "managerId": 2,
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=zhangwei"
+  },
+  {
+    "id": 2,
+    "username": "li.ming",
+    "password": "Huiren@2025",
+    "realName": "李明",
+    "role": "manager",
+    "department": "销售部",
+    "managerId": 5,
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=liming"
+  },
+  {
+    "id": 3,
+    "username": "wang.fang",
+    "password": "Huiren@2025",
+    "realName": "王芳",
+    "role": "employee",
+    "department": "研发部",
+    "managerId": 4,
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=wangfang"
+  },
+  {
+    "id": 4,
+    "username": "zhao.jian",
+    "password": "Huiren@2025",
+    "realName": "赵建",
+    "role": "manager",
+    "department": "研发部",
+    "managerId": 5,
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=zhaojian"
+  },
+  {
+    "id": 5,
+    "username": "sun.hui",
+    "password": "Huiren@2025",
+    "realName": "孙慧",
+    "role": "leader",
+    "department": "总经办",
+    "managerId": null,
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=sunhui"
+  },
+  {
+    "id": 6,
+    "username": "admin",
+    "password": "Admin@2025",
+    "realName": "系统管理员",
+    "role": "admin",
+    "department": "IT部",
+    "managerId": null,
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=admin"
+  },
+  {
+    "id": 7,
+    "username": "chen.hr",
+    "password": "Huiren@2025",
+    "realName": "陈佳",
+    "role": "hr",
+    "department": "人力资源部",
+    "managerId": null,
+    "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=chenhr"
+  }
+]

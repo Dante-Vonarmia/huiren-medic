@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "title": "提升销售业绩",
+    "description": "本季度销售额增长20%，扩大市场份额",
+    "period": "Q4 2025",
+    "owner_id": 1,
+    "owner_name": "张三",
+    "approver_id": 2,
+    "approver_name": "李四",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-10-15T09:00:00Z",
+    "updated_at": "2025-10-16T10:30:00Z",
+    "approval_comment": "目标合理，同意",
+    "keyResults": [
+      {
+        "id": 1,
+        "title": "新增客户数量",
+        "initial_value": 50,
+        "target_value": 80,
+        "current_value": 65,
+        "weight": 40,
+        "unit": "个"
+      },
+      {
+        "id": 2,
+        "title": "销售额",
+        "initial_value": 1000000,
+        "target_value": 1200000,
+        "current_value": 1080000,
+        "weight": 40,
+        "unit": "元"
+      },
+      {
+        "id": 3,
+        "title": "客户满意度",
+        "initial_value": 85,
+        "target_value": 95,
+        "current_value": 90,
+        "weight": 20,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "完成产品迭代",
+    "description": "按时交付新版本产品，确保质量",
+    "period": "Q4 2025",
+    "owner_id": 3,
+    "owner_name": "王五",
+    "approver_id": 4,
+    "approver_name": "赵六",
+    "status": "pending",
+    "score": null,
+    "created_at": "2025-11-01T14:20:00Z",
+    "updated_at": "2025-11-01T14:20:00Z",
+    "approval_comment": null,
+    "keyResults": [
+      {
+        "id": 4,
+        "title": "功能完成度",
+        "initial_value": 0,
+        "target_value": 100,
+        "current_value": 35,
+        "weight": 50,
+        "unit": "%"
+      },
+      {
+        "id": 5,
+        "title": "Bug数量",
+        "initial_value": 100,
+        "target_value": 10,
+        "current_value": 45,
+        "weight": 30,
+        "unit": "个"
+      },
+      {
+        "id": 6,
+        "title": "代码覆盖率",
+        "initial_value": 60,
+        "target_value": 85,
+        "current_value": 72,
+        "weight": 20,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "优化用户体验",
+    "description": "提升产品用户体验，降低流失率",
+    "period": "Q4 2025",
+    "owner_id": 3,
+    "owner_name": "王五",
+    "approver_id": 4,
+    "approver_name": "赵六",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-10-20T11:15:00Z",
+    "updated_at": "2025-10-21T09:45:00Z",
+    "approval_comment": "与产品战略一致，批准",
+    "keyResults": [
+      {
+        "id": 7,
+        "title": "用户留存率",
+        "initial_value": 70,
+        "target_value": 85,
+        "current_value": 78,
+        "weight": 50,
+        "unit": "%"
+      },
+      {
+        "id": 8,
+        "title": "页面加载时间",
+        "initial_value": 3.5,
+        "target_value": 1.5,
+        "current_value": 2.2,
+        "weight": 30,
+        "unit": "秒"
+      },
+      {
+        "id": 9,
+        "title": "用户满意度评分",
+        "initial_value": 4.2,
+        "target_value": 4.7,
+        "current_value": 4.5,
+        "weight": 20,
+        "unit": "分"
+      }
+    ]
+  }
+]

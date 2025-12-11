@@ -1,0 +1,151 @@
+[
+  {
+    "id": 1,
+    "name": "OA系统",
+    "type": "oa",
+    "connection_type": "api",
+    "connection_info": {
+      "url": "http://oa.example.com/api",
+      "auth_type": "token",
+      "token": "oa_token_abc123"
+    },
+    "status": "active",
+    "last_sync": "2025-12-11T10:30:00Z",
+    "fieldMappings": [
+      {
+        "external_field": "task_id",
+        "internal_field": "id",
+        "transform_rule": null
+      },
+      {
+        "external_field": "task_title",
+        "internal_field": "title",
+        "transform_rule": null
+      },
+      {
+        "external_field": "task_status",
+        "internal_field": "status",
+        "transform_rule": "toLowerCase"
+      },
+      {
+        "external_field": "created_time",
+        "internal_field": "created_at",
+        "transform_rule": "formatDate"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "ERP系统",
+    "type": "erp",
+    "connection_type": "api",
+    "connection_info": {
+      "url": "http://erp.example.com/api",
+      "auth_type": "basic",
+      "username": "api_user",
+      "password": "******"
+    },
+    "status": "active",
+    "last_sync": "2025-12-11T10:25:00Z",
+    "fieldMappings": [
+      {
+        "external_field": "order_no",
+        "internal_field": "order_id",
+        "transform_rule": null
+      },
+      {
+        "external_field": "total_amount",
+        "internal_field": "amount",
+        "transform_rule": "parseFloat"
+      },
+      {
+        "external_field": "order_status",
+        "internal_field": "status",
+        "transform_rule": "statusMap"
+      },
+      {
+        "external_field": "vendor_name",
+        "internal_field": "vendor",
+        "transform_rule": null
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "CRM系统",
+    "type": "crm",
+    "connection_type": "api",
+    "connection_info": {
+      "url": "http://crm.example.com/api/v2",
+      "auth_type": "oauth",
+      "client_id": "crm_client_123",
+      "client_secret": "******"
+    },
+    "status": "active",
+    "last_sync": "2025-12-11T10:20:00Z",
+    "fieldMappings": [
+      {
+        "external_field": "customer_id",
+        "internal_field": "id",
+        "transform_rule": null
+      },
+      {
+        "external_field": "customer_name",
+        "internal_field": "name",
+        "transform_rule": null
+      },
+      {
+        "external_field": "industry_type",
+        "internal_field": "industry",
+        "transform_rule": null
+      },
+      {
+        "external_field": "next_follow_up",
+        "internal_field": "follow_up_date",
+        "transform_rule": "formatDate"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "WMS系统",
+    "type": "wms",
+    "connection_type": "database",
+    "connection_info": {
+      "host": "wms-db.example.com",
+      "port": 3306,
+      "database": "wms_production",
+      "username": "readonly_user",
+      "password": "******"
+    },
+    "status": "active",
+    "last_sync": "2025-12-11T10:15:00Z",
+    "fieldMappings": [
+      {
+        "external_field": "sku_code",
+        "internal_field": "sku",
+        "transform_rule": null
+      },
+      {
+        "external_field": "product_name",
+        "internal_field": "name",
+        "transform_rule": null
+      },
+      {
+        "external_field": "stock_quantity",
+        "internal_field": "quantity",
+        "transform_rule": "parseInt"
+      },
+      {
+        "external_field": "warehouse_location",
+        "internal_field": "warehouse",
+        "transform_rule": null
+      },
+      {
+        "external_field": "min_threshold",
+        "internal_field": "alert_threshold",
+        "transform_rule": "parseInt"
+      }
+    ]
+  }
+]
