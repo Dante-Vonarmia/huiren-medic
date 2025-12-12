@@ -907,7 +907,7 @@ watch(layout, () => {
   top: 8px;
   right: 8px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 8px;
   opacity: 0;
   transition: opacity 0.3s;
