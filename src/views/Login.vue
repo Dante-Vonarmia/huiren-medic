@@ -346,18 +346,18 @@ const handleLogin = async () => {
 .demo-accounts {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: 16px;
+  gap: 6px;
+  margin-top: 12px;
 }
 
 .account-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
+  gap: 8px;
+  padding: 8px 12px;
   background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
   border: 1px solid #e8e8e8;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -388,7 +388,7 @@ const handleLogin = async () => {
 }
 
 .account-item > span {
-  font-size: 18px;
+  font-size: 14px;
   color: #d81e06;
   transition: all 0.3s ease;
 }
@@ -399,16 +399,16 @@ const handleLogin = async () => {
 }
 
 .account-name {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   color: #1a1a1a;
   font-family: 'Monaco', 'Courier New', monospace;
 }
 
 .account-role {
-  font-size: 12px;
+  font-size: 11px;
   color: #999;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .login-footer {
