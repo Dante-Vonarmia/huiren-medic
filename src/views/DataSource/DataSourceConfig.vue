@@ -375,7 +375,7 @@
               </a-select>
             </a-form-item>
           </a-col>
-          <a-col :span="8}>
+          <a-col :span="8">
             <a-form-item label="转换规则">
               <a-select
                 v-model:value="selectedConnectionData.transform"
