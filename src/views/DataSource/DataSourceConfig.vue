@@ -336,7 +336,7 @@
         </a-button>
       </template>
 
-      <a-row :gutter="16}>
+      <a-row :gutter="16">
         <a-col :span="12">
           <a-descriptions bordered :column="1" size="small">
             <a-descriptions-item label="源字段">
