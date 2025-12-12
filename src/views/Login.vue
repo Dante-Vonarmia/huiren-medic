@@ -107,7 +107,7 @@
     </div>
 
     <!-- Debug Console -->
-    <DebugConsole />
+    <!-- <DebugConsole /> -->
   </div>
 </template>
 
@@ -124,7 +124,7 @@ import {
   SafetyCertificateOutlined
 } from '@ant-design/icons-vue'
 import { useUserStore } from '../stores/user'
-import DebugConsole from '../components/DebugConsole.vue'
+// import DebugConsole from '../components/DebugConsole.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
