@@ -73,9 +73,11 @@
               size="large"
               block
               :loading="loading"
+              :disabled="loading"
               class="login-btn"
             >
-              登 录
+              <span v-if="!loading">登 录</span>
+              <span v-else>正在登录...</span>
             </a-button>
           </a-form-item>
         </a-form>
@@ -108,6 +110,16 @@
 
     <!-- Debug Console -->
     <!-- <DebugConsole /> -->
+
+    <!-- Loading Overlay -->
+    <transition name="fade">
+      <div v-if="loading" class="loading-overlay">
+        <div class="loading-content">
+          <a-spin size="large" />
+          <div class="loading-text">正在登录...</div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -337,10 +349,17 @@ const handleLogin = async () => {
   margin-top: 8px;
   letter-spacing: 1px;
   box-shadow: 0 4px 12px rgba(216, 30, 6, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.login-btn:hover {
+.login-btn:hover:not(:disabled) {
   box-shadow: 0 6px 16px rgba(216, 30, 6, 0.3);
+  transform: translateY(-2px);
+}
+
+.login-btn:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(216, 30, 6, 0.2);
 }
 
 .demo-accounts {
@@ -425,5 +444,53 @@ const handleLogin = async () => {
   align-items: center;
   justify-content: center;
   gap: 8px;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loading-content {
+  text-align: center;
+  color: #fff;
+}
+
+.loading-text {
+  margin-top: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  animation: pulse-text 1.5s ease-in-out infinite;
+}
+
+/* Fade transition */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+@keyframes pulse-text {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 </style>
