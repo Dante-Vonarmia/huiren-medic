@@ -345,16 +345,17 @@ const handleLogin = async () => {
 
 .demo-accounts {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-top: 12px;
 }
 
 .account-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: 4px;
+  padding: 12px;
   background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
   border: 1px solid #e8e8e8;
   border-radius: 8px;
@@ -362,33 +363,35 @@ const handleLogin = async () => {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  flex: 0 0 calc(33.333% - 6px);
+  text-align: center;
 }
 
 .account-item::before {
   content: '';
   position: absolute;
   left: 0;
+  right: 0;
   top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, #d81e06 0%, #ff6b6b 100%);
-  transform: scaleY(0);
+  height: 3px;
+  background: linear-gradient(90deg, #d81e06 0%, #ff6b6b 100%);
+  transform: scaleX(0);
   transition: transform 0.3s ease;
 }
 
 .account-item:hover {
   background: linear-gradient(135deg, rgba(216, 30, 6, 0.05) 0%, rgba(216, 30, 6, 0.02) 100%);
   border-color: rgba(216, 30, 6, 0.3);
-  transform: translateX(4px);
+  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(216, 30, 6, 0.1);
 }
 
 .account-item:hover::before {
-  transform: scaleY(1);
+  transform: scaleX(1);
 }
 
 .account-item > span {
-  font-size: 14px;
+  font-size: 16px;
   color: #d81e06;
   transition: all 0.3s ease;
 }
@@ -399,16 +402,16 @@ const handleLogin = async () => {
 }
 
 .account-name {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   color: #1a1a1a;
   font-family: 'Monaco', 'Courier New', monospace;
 }
 
 .account-role {
-  font-size: 11px;
+  font-size: 10px;
   color: #999;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 .login-footer {
