@@ -1,0 +1,287 @@
+/* 慧仁医药全局样式 */
+
+:root {
+  /* 品牌色 */
+  --primary-color: #d81e06;
+  --primary-light: #ff6b6b;
+  --primary-dark: #a81505;
+  --primary-bg: rgba(216, 30, 6, 0.08);
+
+  /* 渐变 */
+  --gradient-red: linear-gradient(135deg, #d81e06 0%, #ff6b6b 100%);
+  --gradient-blue: linear-gradient(135deg, #1890ff 0%, #36cfc9 100%);
+  --gradient-green: linear-gradient(135deg, #52c41a 0%, #95de64 100%);
+  --gradient-orange: linear-gradient(135deg, #faad14 0%, #ffc53d 100%);
+  --gradient-purple: linear-gradient(135deg, #722ed1 0%, #b37feb 100%);
+
+  /* 阴影 */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-primary: 0 4px 16px rgba(216, 30, 6, 0.2);
+
+  /* 背景 */
+  --bg-gray: #fafafa;
+  --bg-light: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f5;
+}
+
+/* 全局卡片增强 */
+.ant-card {
+  border-radius: 12px !important;
+  border: none !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ant-card:hover {
+  box-shadow: var(--shadow-md) !important;
+  transform: translateY(-2px);
+}
+
+.ant-card-head {
+  border-bottom: 1px solid #f0f0f0 !important;
+  padding: 20px 24px !important;
+}
+
+.ant-card-head-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #262626 !important;
+}
+
+.ant-card-body {
+  padding: 24px !important;
+}
+
+/* 按钮增强 */
+.ant-btn {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: none !important;
+}
+
+.ant-btn-primary {
+  background: var(--gradient-red) !important;
+  border: none !important;
+}
+
+.ant-btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-primary) !important;
+}
+
+.ant-btn-primary:active {
+  transform: translateY(0);
+}
+
+/* 表格增强 */
+.ant-table {
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.ant-table-thead > tr > th {
+  background: #fafafa !important;
+  font-weight: 600 !important;
+  color: #262626 !important;
+  border-bottom: 2px solid #f0f0f0 !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #fff7f7 !important;
+}
+
+.ant-table-tbody > tr > td {
+  transition: background 0.3s ease;
+}
+
+/* 标签增强 */
+.ant-tag {
+  border-radius: 6px !important;
+  padding: 4px 12px !important;
+  font-weight: 500 !important;
+  border: none !important;
+}
+
+/* 统计卡片增强 */
+.ant-statistic {
+  padding: 16px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  transition: all 0.3s ease;
+}
+
+.ant-statistic:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.ant-statistic-title {
+  font-size: 14px !important;
+  color: #8c8c8c !important;
+  font-weight: 500 !important;
+  margin-bottom: 8px !important;
+}
+
+.ant-statistic-content {
+  font-size: 28px !important;
+  font-weight: 600 !important;
+}
+
+/* 输入框增强 */
+.ant-input,
+.ant-input-number,
+.ant-select-selector,
+.ant-picker {
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-input:hover,
+.ant-input-number:hover,
+.ant-select-selector:hover,
+.ant-picker:hover {
+  border-color: var(--primary-light) !important;
+}
+
+.ant-input:focus,
+.ant-input-number-focused,
+.ant-select-focused .ant-select-selector,
+.ant-picker-focused {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 2px rgba(216, 30, 6, 0.1) !important;
+}
+
+/* 模态框增强 */
+.ant-modal-content {
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+.ant-modal-header {
+  border-bottom: 1px solid #f0f0f0 !important;
+  padding: 20px 24px !important;
+}
+
+.ant-modal-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+}
+
+.ant-modal-body {
+  padding: 24px !important;
+}
+
+.ant-modal-footer {
+  border-top: 1px solid #f0f0f0 !important;
+  padding: 16px 24px !important;
+}
+
+/* 菜单增强 */
+.ant-menu-item-selected {
+  background: var(--primary-bg) !important;
+  color: var(--primary-color) !important;
+  font-weight: 600 !important;
+}
+
+.ant-menu-item:hover {
+  background: rgba(216, 30, 6, 0.04) !important;
+  color: var(--primary-color) !important;
+}
+
+/* 分页器增强 */
+.ant-pagination-item-active {
+  background: var(--gradient-red) !important;
+  border: none !important;
+}
+
+.ant-pagination-item-active a {
+  color: #fff !important;
+}
+
+/* 加载动画增强 */
+.ant-spin-dot-item {
+  background-color: var(--primary-color) !important;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bfbfbf;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* 通用工具类 */
+.gradient-text {
+  background: var(--gradient-red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card-hover-effect {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* 页面动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .ant-card-body {
+    padding: 16px !important;
+  }
+
+  .ant-statistic-content {
+    font-size: 24px !important;
+  }
+}

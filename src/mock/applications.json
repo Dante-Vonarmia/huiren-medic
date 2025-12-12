@@ -1,0 +1,174 @@
+[
+  {
+    "id": 1,
+    "name": "员工入职申请",
+    "type": "form",
+    "category": "人力资源",
+    "description": "新员工入职信息登记表单，包含基本信息、教育背景、工作经历等",
+    "icon": "📝",
+    "thumbnail": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop",
+    "createdBy": "李明 (管理员)",
+    "createdAt": "2024-12-10",
+    "published": true,
+    "usageCount": 156,
+    "config": {
+      "fields": [
+        { "type": "input", "label": "姓名", "required": true },
+        { "type": "input", "label": "身份证号", "required": true },
+        { "type": "date", "label": "入职日期", "required": true },
+        { "type": "select", "label": "部门", "options": ["销售部", "研发部", "生产部", "人力资源部"] },
+        { "type": "textarea", "label": "备注" }
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "name": "请假申请流程",
+    "type": "workflow",
+    "category": "行政审批",
+    "description": "员工请假审批流程，支持主管审批、HR备案",
+    "icon": "🔄",
+    "thumbnail": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop",
+    "createdBy": "陈佳",
+    "createdAt": "2024-12-08",
+    "published": true,
+    "usageCount": 289,
+    "config": {
+      "nodes": [
+        { "id": "start", "type": "start", "label": "开始" },
+        { "id": "form", "type": "form", "label": "填写请假单" },
+        { "id": "approve1", "type": "approve", "label": "主管审批" },
+        { "id": "approve2", "type": "approve", "label": "HR备案" },
+        { "id": "end", "type": "end", "label": "结束" }
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "name": "销售数据看板",
+    "type": "page",
+    "category": "数据分析",
+    "description": "实时展示销售团队业绩、客户转化率、销售漏斗等关键指标",
+    "icon": "📊",
+    "thumbnail": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop",
+    "createdBy": "李明",
+    "createdAt": "2024-12-05",
+    "published": true,
+    "usageCount": 423,
+    "config": {
+      "components": [
+        { "type": "chart", "chartType": "line", "title": "月度销售趋势" },
+        { "type": "chart", "chartType": "pie", "title": "产品销售占比" },
+        { "type": "table", "title": "销售排行榜" },
+        { "type": "card", "title": "本月销售额" }
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "name": "物料采购申请",
+    "type": "form",
+    "category": "采购管理",
+    "description": "生产部门物料采购申请表单，包含物料信息、数量、预算等",
+    "icon": "🛒",
+    "thumbnail": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
+    "createdBy": "赵建",
+    "createdAt": "2024-12-12",
+    "published": true,
+    "usageCount": 92,
+    "config": {
+      "fields": [
+        { "type": "input", "label": "物料名称", "required": true },
+        { "type": "number", "label": "采购数量", "required": true },
+        { "type": "number", "label": "预算金额", "required": true },
+        { "type": "date", "label": "需求日期", "required": true },
+        { "type": "textarea", "label": "采购原因" }
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "name": "生产工单管理",
+    "type": "page",
+    "category": "生产管理",
+    "description": "生产工单全流程管理，包括工单创建、进度跟踪、质检记录",
+    "icon": "🏭",
+    "thumbnail": "https://images.unsplash.com/photo-1565688534245-05d6b5be184a?w=400&h=300&fit=crop",
+    "createdBy": "周兰",
+    "createdAt": "2024-12-11",
+    "published": true,
+    "usageCount": 178,
+    "config": {
+      "components": [
+        { "type": "form", "title": "创建工单" },
+        { "type": "table", "title": "工单列表" },
+        { "type": "timeline", "title": "工单进度" }
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "name": "客户投诉处理流程",
+    "type": "workflow",
+    "category": "客户服务",
+    "description": "客户投诉接收、处理、回访完整流程",
+    "icon": "💬",
+    "thumbnail": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop",
+    "createdBy": "李明",
+    "createdAt": "2024-12-09",
+    "published": true,
+    "usageCount": 67,
+    "config": {
+      "nodes": [
+        { "id": "start", "type": "start", "label": "开始" },
+        { "id": "submit", "type": "form", "label": "提交投诉" },
+        { "id": "assign", "type": "assign", "label": "分配处理人" },
+        { "id": "handle", "type": "handle", "label": "处理投诉" },
+        { "id": "callback", "type": "callback", "label": "客户回访" },
+        { "id": "end", "type": "end", "label": "结束" }
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "name": "财务报表中心",
+    "type": "page",
+    "category": "财务管理",
+    "description": "集成展示各类财务报表、资金流水、预算执行情况",
+    "icon": "💰",
+    "thumbnail": "https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=400&h=300&fit=crop",
+    "createdBy": "吴涛",
+    "createdAt": "2024-12-07",
+    "published": true,
+    "usageCount": 234,
+    "config": {
+      "components": [
+        { "type": "chart", "chartType": "bar", "title": "月度收支对比" },
+        { "type": "chart", "chartType": "line", "title": "现金流趋势" },
+        { "type": "table", "title": "费用明细" }
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "name": "培训申请表",
+    "type": "form",
+    "category": "人力资源",
+    "description": "员工培训需求申请，包括培训类型、预算、时间安排",
+    "icon": "📚",
+    "thumbnail": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=300&fit=crop",
+    "createdBy": "陈佳",
+    "createdAt": "2024-12-06",
+    "published": true,
+    "usageCount": 145,
+    "config": {
+      "fields": [
+        { "type": "input", "label": "培训主题", "required": true },
+        { "type": "select", "label": "培训类型", "options": ["内部培训", "外部培训", "在线课程"] },
+        { "type": "number", "label": "预算", "required": true },
+        { "type": "daterange", "label": "培训时间", "required": true },
+        { "type": "textarea", "label": "培训目标" }
+      ]
+    }
+  }
+]

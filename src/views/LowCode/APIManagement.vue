@@ -1,16 +1,43 @@
 <template>
   <div class="api-management">
-    <a-page-header
-      title="API管理"
-      sub-title="配置API端点，测试接口调用"
-    >
-      <template #extra>
-        <a-button type="primary" @click="createAPI">
-          <template #icon><PlusOutlined /></template>
-          添加API
+    <!-- Platform Header -->
+    <div class="api-header">
+      <div class="header-content">
+        <div class="header-title">
+          <ApiOutlined style="font-size: 28px; color: #262626;" />
+          <div>
+            <h2>API管理中心</h2>
+            <p>统一API配置、测试与管理，支持RESTful规范</p>
+          </div>
+        </div>
+        <div class="api-stats">
+          <div class="stat-item">
+            <CodeOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">{{ apis.length }}</div>
+              <div class="stat-label">API端点</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <ThunderboltOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">实时</div>
+              <div class="stat-label">测试调用</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <CheckCircleOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">100%</div>
+              <div class="stat-label">可用率</div>
+            </div>
+          </div>
+        </div>
+        <a-button type="primary" @click="createAPI" ghost>
+          <PlusOutlined /> 添加API
         </a-button>
-      </template>
-    </a-page-header>
+      </div>
+    </div>
 
     <a-row :gutter="16">
       <a-col :span="10">
@@ -139,7 +166,10 @@ import {
   PlusOutlined,
   DeleteOutlined,
   ThunderboltOutlined,
-  SaveOutlined
+  SaveOutlined,
+  ApiOutlined,
+  CodeOutlined,
+  CheckCircleOutlined
 } from '@ant-design/icons-vue'
 
 const apis = ref([
@@ -241,6 +271,69 @@ const deleteAPI = (api) => {
   padding: 24px;
   background: #f5f5f5;
   min-height: calc(100vh - 64px);
+}
+
+.api-header {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  color: #262626;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.header-title h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.header-title p {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.api-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.api-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-top: 4px;
 }
 
 .api-item {

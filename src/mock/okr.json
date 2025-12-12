@@ -5,9 +5,9 @@
     "description": "本季度销售额增长20%，扩大市场份额",
     "period": "Q4 2025",
     "owner_id": 1,
-    "owner_name": "张三",
+    "owner_name": "张伟",
     "approver_id": 2,
-    "approver_name": "李四",
+    "approver_name": "李明",
     "status": "approved",
     "score": null,
     "created_at": "2025-10-15T09:00:00Z",
@@ -45,13 +45,13 @@
   },
   {
     "id": 2,
-    "title": "完成产品迭代",
-    "description": "按时交付新版本产品，确保质量",
+    "title": "提升生产效率20%",
+    "description": "通过优化生产流程，减少异常停机时间",
     "period": "Q4 2025",
-    "owner_id": 3,
-    "owner_name": "王五",
-    "approver_id": 4,
-    "approver_name": "赵六",
+    "owner_id": 1,
+    "owner_name": "张伟",
+    "approver_id": 2,
+    "approver_name": "李明",
     "status": "pending",
     "score": null,
     "created_at": "2025-11-01T14:20:00Z",
@@ -60,74 +60,1482 @@
     "keyResults": [
       {
         "id": 4,
-        "title": "功能完成度",
-        "initial_value": 0,
-        "target_value": 100,
-        "current_value": 35,
-        "weight": 50,
+        "title": "设备故障率降低至5%",
+        "initial_value": 12,
+        "target_value": 5,
+        "current_value": 12,
+        "weight": 40,
         "unit": "%"
       },
       {
         "id": 5,
-        "title": "Bug数量",
-        "initial_value": 100,
-        "target_value": 10,
-        "current_value": 45,
+        "title": "生产异常工单处理时效<2小时",
+        "initial_value": 4,
+        "target_value": 2,
+        "current_value": 4,
         "weight": 30,
-        "unit": "个"
+        "unit": "小时"
       },
       {
         "id": 6,
-        "title": "代码覆盖率",
+        "title": "员工技能培训覆盖率达100%",
         "initial_value": 60,
-        "target_value": 85,
-        "current_value": 72,
-        "weight": 20,
+        "target_value": 100,
+        "current_value": 60,
+        "weight": 30,
         "unit": "%"
       }
     ]
   },
   {
     "id": 3,
-    "title": "优化用户体验",
-    "description": "提升产品用户体验，降低流失率",
+    "title": "完成新药研发项目",
+    "description": "按时完成新药临床试验，推进上市进度",
     "period": "Q4 2025",
     "owner_id": 3,
-    "owner_name": "王五",
+    "owner_name": "王芳",
     "approver_id": 4,
-    "approver_name": "赵六",
+    "approver_name": "赵建",
     "status": "approved",
     "score": null,
     "created_at": "2025-10-20T11:15:00Z",
     "updated_at": "2025-10-21T09:45:00Z",
-    "approval_comment": "与产品战略一致，批准",
+    "approval_comment": "与研发战略一致，批准",
     "keyResults": [
       {
         "id": 7,
-        "title": "用户留存率",
-        "initial_value": 70,
-        "target_value": 85,
-        "current_value": 78,
+        "title": "临床试验进度",
+        "initial_value": 30,
+        "target_value": 80,
+        "current_value": 55,
         "weight": 50,
         "unit": "%"
       },
       {
         "id": 8,
-        "title": "页面加载时间",
-        "initial_value": 3.5,
-        "target_value": 1.5,
-        "current_value": 2.2,
+        "title": "试验数据完整性",
+        "initial_value": 70,
+        "target_value": 95,
+        "current_value": 85,
         "weight": 30,
-        "unit": "秒"
+        "unit": "%"
       },
       {
         "id": 9,
-        "title": "用户满意度评分",
+        "title": "监管文件准备进度",
+        "initial_value": 20,
+        "target_value": 90,
+        "current_value": 50,
+        "weight": 20,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "提升客户满意度",
+    "description": "优化客户服务流程，提升客户体验",
+    "period": "Q4 2025",
+    "owner_id": 3,
+    "owner_name": "王芳",
+    "approver_id": 4,
+    "approver_name": "赵建",
+    "status": "draft",
+    "score": null,
+    "created_at": "2025-12-01T10:00:00Z",
+    "updated_at": "2025-12-01T10:00:00Z",
+    "approval_comment": null,
+    "keyResults": [
+      {
+        "id": 10,
+        "title": "客户响应时效",
+        "initial_value": 24,
+        "target_value": 4,
+        "current_value": 24,
+        "weight": 40,
+        "unit": "小时"
+      },
+      {
+        "id": 11,
+        "title": "客户满意度评分",
+        "initial_value": 4.0,
+        "target_value": 4.8,
+        "current_value": 4.0,
+        "weight": 40,
+        "unit": "分"
+      },
+      {
+        "id": 12,
+        "title": "客户投诉处理率",
+        "initial_value": 80,
+        "target_value": 98,
+        "current_value": 80,
+        "weight": 20,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "打造高效销售团队",
+    "description": "提升团队销售能力，建设销冠文化",
+    "period": "Q4 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-10-10T08:30:00Z",
+    "updated_at": "2025-10-11T14:20:00Z",
+    "approval_comment": "团队建设方向正确，批准",
+    "keyResults": [
+      {
+        "id": 13,
+        "title": "团队月均业绩达标率",
+        "initial_value": 75,
+        "target_value": 95,
+        "current_value": 88,
+        "weight": 50,
+        "unit": "%"
+      },
+      {
+        "id": 14,
+        "title": "销售培训完成率",
+        "initial_value": 60,
+        "target_value": 100,
+        "current_value": 85,
+        "weight": 30,
+        "unit": "%"
+      },
+      {
+        "id": 15,
+        "title": "员工满意度",
         "initial_value": 4.2,
         "target_value": 4.7,
         "current_value": 4.5,
         "weight": 20,
         "unit": "分"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "优化销售流程和工具",
+    "description": "引入CRM系统，优化销售全流程管理",
+    "period": "Q4 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-10-18T11:00:00Z",
+    "updated_at": "2025-10-19T09:15:00Z",
+    "approval_comment": "提升效率的关键举措，同意",
+    "keyResults": [
+      {
+        "id": 16,
+        "title": "CRM系统上线率",
+        "initial_value": 0,
+        "target_value": 100,
+        "current_value": 75,
+        "weight": 40,
+        "unit": "%"
+      },
+      {
+        "id": 17,
+        "title": "销售线索转化率",
+        "initial_value": 15,
+        "target_value": 25,
+        "current_value": 20,
+        "weight": 40,
+        "unit": "%"
+      },
+      {
+        "id": 18,
+        "title": "销售周期缩短",
+        "initial_value": 30,
+        "target_value": 20,
+        "current_value": 25,
+        "weight": 20,
+        "unit": "天"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "拓展华东市场份额",
+    "description": "Q4完成华东市场战略布局，新增3个城市覆盖",
+    "period": "Q4 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "draft",
+    "score": null,
+    "created_at": "2025-12-02T10:30:00Z",
+    "updated_at": "2025-12-02T10:30:00Z",
+    "approval_comment": null,
+    "keyResults": [
+      {
+        "id": 19,
+        "title": "新开城市数量",
+        "initial_value": 0,
+        "target_value": 3,
+        "current_value": 0,
+        "weight": 40,
+        "unit": "个"
+      },
+      {
+        "id": 20,
+        "title": "华东区销售额占比",
+        "initial_value": 20,
+        "target_value": 35,
+        "current_value": 20,
+        "weight": 40,
+        "unit": "%"
+      },
+      {
+        "id": 21,
+        "title": "渠道合作伙伴数量",
+        "initial_value": 5,
+        "target_value": 15,
+        "current_value": 5,
+        "weight": 20,
+        "unit": "家"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "产品质量管理体系升级",
+    "description": "通过ISO认证，提升质量管控能力",
+    "period": "Q4 2025",
+    "owner_id": 4,
+    "owner_name": "赵建",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-10-05T14:00:00Z",
+    "updated_at": "2025-10-06T16:30:00Z",
+    "approval_comment": "质量是生命线，全力支持",
+    "keyResults": [
+      {
+        "id": 22,
+        "title": "ISO认证进度",
+        "initial_value": 30,
+        "target_value": 100,
+        "current_value": 70,
+        "weight": 50,
+        "unit": "%"
+      },
+      {
+        "id": 23,
+        "title": "产品合格率",
+        "initial_value": 96,
+        "target_value": 99.5,
+        "current_value": 98,
+        "weight": 30,
+        "unit": "%"
+      },
+      {
+        "id": 24,
+        "title": "客户投诉率",
+        "initial_value": 3.5,
+        "target_value": 1.0,
+        "current_value": 2.1,
+        "weight": 20,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "建立员工培训体系",
+    "description": "打造学习型组织，提升员工综合能力",
+    "period": "Q4 2025",
+    "owner_id": 7,
+    "owner_name": "陈佳",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-10-08T09:00:00Z",
+    "updated_at": "2025-10-09T11:20:00Z",
+    "approval_comment": "人才发展的基础工作，批准",
+    "keyResults": [
+      {
+        "id": 25,
+        "title": "培训课程上线数量",
+        "initial_value": 10,
+        "target_value": 50,
+        "current_value": 35,
+        "weight": 30,
+        "unit": "门"
+      },
+      {
+        "id": 26,
+        "title": "员工培训参与率",
+        "initial_value": 60,
+        "target_value": 95,
+        "current_value": 82,
+        "weight": 40,
+        "unit": "%"
+      },
+      {
+        "id": 27,
+        "title": "培训满意度",
+        "initial_value": 3.8,
+        "target_value": 4.5,
+        "current_value": 4.2,
+        "weight": 30,
+        "unit": "分"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "供应链数字化转型",
+    "description": "建设智能供应链管理平台，提升供应链透明度",
+    "period": "Q4 2025",
+    "owner_id": 1,
+    "owner_name": "张伟",
+    "approver_id": 2,
+    "approver_name": "李明",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-09-20T08:00:00Z",
+    "updated_at": "2025-09-21T14:30:00Z",
+    "approval_comment": "数字化转型关键项目，批准",
+    "keyResults": [
+      {
+        "id": 28,
+        "title": "供应商在线率",
+        "initial_value": 40,
+        "target_value": 85,
+        "current_value": 68,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 29,
+        "title": "订单自动化处理率",
+        "initial_value": 30,
+        "target_value": 75,
+        "current_value": 55,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 30,
+        "title": "库存周转率提升",
+        "initial_value": 6,
+        "target_value": 10,
+        "current_value": 8,
+        "weight": 30,
+        "unit": "次/年"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "title": "品牌影响力提升",
+    "description": "加强品牌建设，提升行业知名度和影响力",
+    "period": "Q4 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-09-15T10:00:00Z",
+    "updated_at": "2025-09-16T11:30:00Z",
+    "approval_comment": "品牌建设势在必行，同意",
+    "keyResults": [
+      {
+        "id": 31,
+        "title": "行业展会参展次数",
+        "initial_value": 2,
+        "target_value": 6,
+        "current_value": 4,
+        "weight": 30,
+        "unit": "次"
+      },
+      {
+        "id": 32,
+        "title": "媒体曝光量",
+        "initial_value": 50,
+        "target_value": 150,
+        "current_value": 95,
+        "weight": 35,
+        "unit": "篇"
+      },
+      {
+        "id": 33,
+        "title": "品牌认知度",
+        "initial_value": 35,
+        "target_value": 60,
+        "current_value": 48,
+        "weight": 35,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "title": "技术创新能力提升",
+    "description": "加大研发投入，提升专利申请和技术储备",
+    "period": "Q4 2025",
+    "owner_id": 4,
+    "owner_name": "赵建",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-09-10T09:30:00Z",
+    "updated_at": "2025-09-11T15:00:00Z",
+    "approval_comment": "技术是核心竞争力，支持",
+    "keyResults": [
+      {
+        "id": 34,
+        "title": "专利申请数量",
+        "initial_value": 8,
+        "target_value": 20,
+        "current_value": 15,
+        "weight": 40,
+        "unit": "件"
+      },
+      {
+        "id": 35,
+        "title": "研发投入占比",
+        "initial_value": 8,
+        "target_value": 12,
+        "current_value": 10,
+        "weight": 30,
+        "unit": "%"
+      },
+      {
+        "id": 36,
+        "title": "新产品上市数量",
+        "initial_value": 2,
+        "target_value": 5,
+        "current_value": 3,
+        "weight": 30,
+        "unit": "个"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "title": "成本控制与利润提升",
+    "description": "优化成本结构，提升企业盈利能力",
+    "period": "Q4 2025",
+    "owner_id": 1,
+    "owner_name": "张伟",
+    "approver_id": 2,
+    "approver_name": "李明",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-10-12T14:00:00Z",
+    "updated_at": "2025-10-13T10:30:00Z",
+    "approval_comment": "成本控制关键指标，批准",
+    "keyResults": [
+      {
+        "id": 37,
+        "title": "单位成本下降",
+        "initial_value": 100,
+        "target_value": 85,
+        "current_value": 92,
+        "weight": 40,
+        "unit": "元"
+      },
+      {
+        "id": 38,
+        "title": "毛利率提升",
+        "initial_value": 35,
+        "target_value": 42,
+        "current_value": 38,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 39,
+        "title": "运营费用率下降",
+        "initial_value": 25,
+        "target_value": 20,
+        "current_value": 22,
+        "weight": 25,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "title": "客户关系管理优化",
+    "description": "建立完善的客户关系管理体系，提升客户粘性",
+    "period": "Q4 2025",
+    "owner_id": 3,
+    "owner_name": "王芳",
+    "approver_id": 4,
+    "approver_name": "赵建",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-10-25T09:00:00Z",
+    "updated_at": "2025-10-26T14:00:00Z",
+    "approval_comment": "客户是企业之本，同意",
+    "keyResults": [
+      {
+        "id": 40,
+        "title": "客户续约率",
+        "initial_value": 75,
+        "target_value": 90,
+        "current_value": 82,
+        "weight": 40,
+        "unit": "%"
+      },
+      {
+        "id": 41,
+        "title": "客户活跃度",
+        "initial_value": 60,
+        "target_value": 80,
+        "current_value": 70,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 42,
+        "title": "NPS净推荐值",
+        "initial_value": 40,
+        "target_value": 60,
+        "current_value": 52,
+        "weight": 25,
+        "unit": "分"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "title": "信息安全体系建设",
+    "description": "完善信息安全管理，通过等保三级认证",
+    "period": "Q4 2025",
+    "owner_id": 6,
+    "owner_name": "系统管理员",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-10-01T08:00:00Z",
+    "updated_at": "2025-10-02T16:00:00Z",
+    "approval_comment": "信息安全重中之重，批准",
+    "keyResults": [
+      {
+        "id": 43,
+        "title": "等保三级认证进度",
+        "initial_value": 20,
+        "target_value": 100,
+        "current_value": 65,
+        "weight": 50,
+        "unit": "%"
+      },
+      {
+        "id": 44,
+        "title": "安全漏洞修复率",
+        "initial_value": 80,
+        "target_value": 100,
+        "current_value": 95,
+        "weight": 30,
+        "unit": "%"
+      },
+      {
+        "id": 45,
+        "title": "员工安全培训覆盖率",
+        "initial_value": 60,
+        "target_value": 100,
+        "current_value": 85,
+        "weight": 20,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "title": "组织文化建设",
+    "description": "打造积极向上的企业文化，提升员工归属感",
+    "period": "Q4 2025",
+    "owner_id": 7,
+    "owner_name": "陈佳",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-09-25T10:00:00Z",
+    "updated_at": "2025-09-26T14:30:00Z",
+    "approval_comment": "文化是软实力，全力支持",
+    "keyResults": [
+      {
+        "id": 46,
+        "title": "员工敬业度",
+        "initial_value": 65,
+        "target_value": 85,
+        "current_value": 75,
+        "weight": 40,
+        "unit": "%"
+      },
+      {
+        "id": 47,
+        "title": "员工流失率下降",
+        "initial_value": 15,
+        "target_value": 8,
+        "current_value": 11,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 48,
+        "title": "企业文化活动参与率",
+        "initial_value": 50,
+        "target_value": 85,
+        "current_value": 70,
+        "weight": 25,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "title": "市场拓展与渠道建设",
+    "description": "开拓新市场，建立多元化销售渠道",
+    "period": "Q4 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "pending",
+    "score": null,
+    "created_at": "2025-11-25T09:00:00Z",
+    "updated_at": "2025-11-25T09:00:00Z",
+    "approval_comment": null,
+    "keyResults": [
+      {
+        "id": 49,
+        "title": "新市场开发数量",
+        "initial_value": 0,
+        "target_value": 5,
+        "current_value": 0,
+        "weight": 40,
+        "unit": "个"
+      },
+      {
+        "id": 50,
+        "title": "经销商网络覆盖率",
+        "initial_value": 45,
+        "target_value": 75,
+        "current_value": 45,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 51,
+        "title": "渠道销售额占比",
+        "initial_value": 30,
+        "target_value": 50,
+        "current_value": 30,
+        "weight": 25,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "title": "生产自动化升级",
+    "description": "引入自动化生产线，提升生产效率和产品质量",
+    "period": "Q4 2025",
+    "owner_id": 1,
+    "owner_name": "张伟",
+    "approver_id": 2,
+    "approver_name": "李明",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-09-05T08:30:00Z",
+    "updated_at": "2025-09-06T15:00:00Z",
+    "approval_comment": "自动化升级战略重点，批准",
+    "keyResults": [
+      {
+        "id": 52,
+        "title": "自动化产线投产数量",
+        "initial_value": 2,
+        "target_value": 6,
+        "current_value": 4,
+        "weight": 40,
+        "unit": "条"
+      },
+      {
+        "id": 53,
+        "title": "生产效率提升",
+        "initial_value": 100,
+        "target_value": 150,
+        "current_value": 125,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 54,
+        "title": "次品率下降",
+        "initial_value": 5,
+        "target_value": 2,
+        "current_value": 3,
+        "weight": 25,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "title": "合规管理体系完善",
+    "description": "建立完善的合规管理体系，降低合规风险",
+    "period": "Q4 2025",
+    "owner_id": 4,
+    "owner_name": "赵建",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-10-20T10:00:00Z",
+    "updated_at": "2025-10-21T14:00:00Z",
+    "approval_comment": "合规是底线，必须做好",
+    "keyResults": [
+      {
+        "id": 55,
+        "title": "合规培训完成率",
+        "initial_value": 70,
+        "target_value": 100,
+        "current_value": 88,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 56,
+        "title": "合规审计通过率",
+        "initial_value": 85,
+        "target_value": 98,
+        "current_value": 92,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 57,
+        "title": "合规事件发生数",
+        "initial_value": 8,
+        "target_value": 0,
+        "current_value": 2,
+        "weight": 30,
+        "unit": "次"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "title": "数据分析能力建设",
+    "description": "建立企业级数据分析平台，提升数据驱动决策能力",
+    "period": "Q4 2025",
+    "owner_id": 6,
+    "owner_name": "系统管理员",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-09-18T09:00:00Z",
+    "updated_at": "2025-09-19T16:00:00Z",
+    "approval_comment": "数据是新石油，批准",
+    "keyResults": [
+      {
+        "id": 58,
+        "title": "数据平台上线进度",
+        "initial_value": 30,
+        "target_value": 100,
+        "current_value": 70,
+        "weight": 40,
+        "unit": "%"
+      },
+      {
+        "id": 59,
+        "title": "数据看板覆盖率",
+        "initial_value": 40,
+        "target_value": 90,
+        "current_value": 68,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 60,
+        "title": "数据驱动决策占比",
+        "initial_value": 30,
+        "target_value": 70,
+        "current_value": 52,
+        "weight": 25,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "title": "绿色环保转型",
+    "description": "推进绿色生产，降低碳排放，实现可持续发展",
+    "period": "Q4 2025",
+    "owner_id": 1,
+    "owner_name": "张伟",
+    "approver_id": 2,
+    "approver_name": "李明",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-09-28T08:00:00Z",
+    "updated_at": "2025-09-29T15:30:00Z",
+    "approval_comment": "环保是社会责任，支持",
+    "keyResults": [
+      {
+        "id": 61,
+        "title": "碳排放降低",
+        "initial_value": 100,
+        "target_value": 70,
+        "current_value": 85,
+        "weight": 40,
+        "unit": "吨"
+      },
+      {
+        "id": 62,
+        "title": "清洁能源使用占比",
+        "initial_value": 20,
+        "target_value": 45,
+        "current_value": 32,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 63,
+        "title": "废弃物回收率",
+        "initial_value": 60,
+        "target_value": 85,
+        "current_value": 73,
+        "weight": 25,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "title": "国际化战略推进",
+    "description": "开拓海外市场，提升国际业务占比",
+    "period": "Q4 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "draft",
+    "score": null,
+    "created_at": "2025-11-28T10:00:00Z",
+    "updated_at": "2025-11-28T10:00:00Z",
+    "approval_comment": null,
+    "keyResults": [
+      {
+        "id": 64,
+        "title": "海外市场开拓数量",
+        "initial_value": 0,
+        "target_value": 3,
+        "current_value": 0,
+        "weight": 40,
+        "unit": "个"
+      },
+      {
+        "id": 65,
+        "title": "国际业务收入占比",
+        "initial_value": 5,
+        "target_value": 15,
+        "current_value": 5,
+        "weight": 40,
+        "unit": "%"
+      },
+      {
+        "id": 66,
+        "title": "海外合作伙伴数量",
+        "initial_value": 2,
+        "target_value": 10,
+        "current_value": 2,
+        "weight": 20,
+        "unit": "家"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "title": "人才梯队建设",
+    "description": "建立完善的人才培养和晋升机制",
+    "period": "Q4 2025",
+    "owner_id": 7,
+    "owner_name": "陈佳",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-10-15T09:30:00Z",
+    "updated_at": "2025-10-16T14:00:00Z",
+    "approval_comment": "人才储备关键任务，批准",
+    "keyResults": [
+      {
+        "id": 67,
+        "title": "关键岗位后备人才覆盖率",
+        "initial_value": 40,
+        "target_value": 80,
+        "current_value": 62,
+        "weight": 40,
+        "unit": "%"
+      },
+      {
+        "id": 68,
+        "title": "内部晋升比例",
+        "initial_value": 50,
+        "target_value": 75,
+        "current_value": 64,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 69,
+        "title": "管培生留存率",
+        "initial_value": 70,
+        "target_value": 90,
+        "current_value": 82,
+        "weight": 25,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "title": "产品创新与迭代",
+    "description": "加快产品创新节奏，提升产品竞争力",
+    "period": "Q4 2025",
+    "owner_id": 4,
+    "owner_name": "赵建",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-09-12T08:00:00Z",
+    "updated_at": "2025-09-13T16:00:00Z",
+    "approval_comment": "产品创新是核心，同意",
+    "keyResults": [
+      {
+        "id": 70,
+        "title": "新品上市周期缩短",
+        "initial_value": 180,
+        "target_value": 120,
+        "current_value": 145,
+        "weight": 40,
+        "unit": "天"
+      },
+      {
+        "id": 71,
+        "title": "产品迭代频率",
+        "initial_value": 2,
+        "target_value": 4,
+        "current_value": 3,
+        "weight": 35,
+        "unit": "次/季度"
+      },
+      {
+        "id": 72,
+        "title": "产品市场占有率",
+        "initial_value": 15,
+        "target_value": 25,
+        "current_value": 20,
+        "weight": 25,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "title": "智能制造升级",
+    "description": "推进工业4.0，建设智能工厂",
+    "period": "Q4 2025",
+    "owner_id": 1,
+    "owner_name": "张伟",
+    "approver_id": 2,
+    "approver_name": "李明",
+    "status": "pending",
+    "score": null,
+    "created_at": "2025-11-20T09:00:00Z",
+    "updated_at": "2025-11-20T09:00:00Z",
+    "approval_comment": null,
+    "keyResults": [
+      {
+        "id": 73,
+        "title": "设备联网率",
+        "initial_value": 40,
+        "target_value": 85,
+        "current_value": 40,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 74,
+        "title": "生产数据实时采集率",
+        "initial_value": 50,
+        "target_value": 95,
+        "current_value": 50,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 75,
+        "title": "预测性维护覆盖率",
+        "initial_value": 20,
+        "target_value": 70,
+        "current_value": 20,
+        "weight": 30,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "title": "销售团队数字化转型",
+    "description": "全面推进销售团队数字化工具应用，提升销售效率",
+    "period": "Q3 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "completed",
+    "score": 92,
+    "created_at": "2025-07-05T09:00:00Z",
+    "updated_at": "2025-09-30T17:00:00Z",
+    "approval_comment": "目标明确，同意执行",
+    "keyResults": [
+      {
+        "id": 76,
+        "title": "销售工具培训覆盖率",
+        "initial_value": 45,
+        "target_value": 100,
+        "current_value": 100,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 77,
+        "title": "移动办公使用率",
+        "initial_value": 30,
+        "target_value": 85,
+        "current_value": 88,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 78,
+        "title": "销售数据录入及时率",
+        "initial_value": 60,
+        "target_value": 95,
+        "current_value": 92,
+        "weight": 30,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "title": "客户留存率提升计划",
+    "description": "通过客户关怀和服务优化，提升老客户留存率",
+    "period": "Q3 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "completed",
+    "score": 88,
+    "created_at": "2025-07-10T10:30:00Z",
+    "updated_at": "2025-09-30T18:00:00Z",
+    "approval_comment": "客户留存是关键，批准",
+    "keyResults": [
+      {
+        "id": 79,
+        "title": "客户流失率",
+        "initial_value": 18,
+        "target_value": 8,
+        "current_value": 9,
+        "weight": 40,
+        "unit": "%"
+      },
+      {
+        "id": 80,
+        "title": "客户复购率",
+        "initial_value": 55,
+        "target_value": 75,
+        "current_value": 73,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 81,
+        "title": "客户满意度调研得分",
+        "initial_value": 4.1,
+        "target_value": 4.6,
+        "current_value": 4.5,
+        "weight": 25,
+        "unit": "分"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "title": "区域市场深度拓展",
+    "description": "深耕华南区域市场，提升市场渗透率",
+    "period": "Q2 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "completed",
+    "score": 85,
+    "created_at": "2025-04-08T09:00:00Z",
+    "updated_at": "2025-06-30T17:30:00Z",
+    "approval_comment": "区域拓展战略重点，同意",
+    "keyResults": [
+      {
+        "id": 82,
+        "title": "华南区新增客户数",
+        "initial_value": 35,
+        "target_value": 80,
+        "current_value": 72,
+        "weight": 40,
+        "unit": "家"
+      },
+      {
+        "id": 83,
+        "title": "华南区销售额增长",
+        "initial_value": 0,
+        "target_value": 35,
+        "current_value": 32,
+        "weight": 40,
+        "unit": "%"
+      },
+      {
+        "id": 84,
+        "title": "区域团队建设完成度",
+        "initial_value": 40,
+        "target_value": 100,
+        "current_value": 90,
+        "weight": 20,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "title": "销售人才培养体系建设",
+    "description": "建立系统化销售培训体系，打造销售精英",
+    "period": "Q2 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "completed",
+    "score": 90,
+    "created_at": "2025-04-15T10:00:00Z",
+    "updated_at": "2025-06-30T18:00:00Z",
+    "approval_comment": "人才是核心竞争力，批准",
+    "keyResults": [
+      {
+        "id": 85,
+        "title": "销售课程体系搭建进度",
+        "initial_value": 20,
+        "target_value": 100,
+        "current_value": 100,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 86,
+        "title": "人均培训时长",
+        "initial_value": 8,
+        "target_value": 24,
+        "current_value": 26,
+        "weight": 30,
+        "unit": "小时"
+      },
+      {
+        "id": 87,
+        "title": "培训后业绩提升率",
+        "initial_value": 0,
+        "target_value": 25,
+        "current_value": 28,
+        "weight": 35,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "title": "新产品上市推广支持",
+    "description": "配合新药上市，完成市场推广和销售目标",
+    "period": "Q1 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "completed",
+    "score": 87,
+    "created_at": "2025-01-10T09:00:00Z",
+    "updated_at": "2025-03-31T17:00:00Z",
+    "approval_comment": "新品上市关键期，全力支持",
+    "keyResults": [
+      {
+        "id": 88,
+        "title": "新品首批订单数量",
+        "initial_value": 0,
+        "target_value": 150,
+        "current_value": 142,
+        "weight": 40,
+        "unit": "个"
+      },
+      {
+        "id": 89,
+        "title": "市场推广活动场次",
+        "initial_value": 0,
+        "target_value": 20,
+        "current_value": 18,
+        "weight": 30,
+        "unit": "场"
+      },
+      {
+        "id": 90,
+        "title": "医生/药店覆盖数",
+        "initial_value": 100,
+        "target_value": 500,
+        "current_value": 480,
+        "weight": 30,
+        "unit": "家"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "title": "销售流程标准化改造",
+    "description": "梳理并优化销售全流程，建立标准化作业规范",
+    "period": "Q1 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "completed",
+    "score": 83,
+    "created_at": "2025-01-15T10:30:00Z",
+    "updated_at": "2025-03-31T18:00:00Z",
+    "approval_comment": "流程优化是提效关键，同意",
+    "keyResults": [
+      {
+        "id": 91,
+        "title": "流程文档完善度",
+        "initial_value": 30,
+        "target_value": 100,
+        "current_value": 95,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 92,
+        "title": "流程执行合规率",
+        "initial_value": 65,
+        "target_value": 90,
+        "current_value": 88,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 93,
+        "title": "销售效率提升",
+        "initial_value": 100,
+        "target_value": 130,
+        "current_value": 125,
+        "weight": 30,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "title": "电商渠道拓展与运营",
+    "description": "开拓线上销售渠道，建立电商运营体系",
+    "period": "Q4 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-10-25T09:30:00Z",
+    "updated_at": "2025-10-26T15:00:00Z",
+    "approval_comment": "电商是未来趋势，批准",
+    "keyResults": [
+      {
+        "id": 94,
+        "title": "电商平台入驻数量",
+        "initial_value": 2,
+        "target_value": 6,
+        "current_value": 4,
+        "weight": 30,
+        "unit": "个"
+      },
+      {
+        "id": 95,
+        "title": "线上销售额占比",
+        "initial_value": 8,
+        "target_value": 20,
+        "current_value": 14,
+        "weight": 40,
+        "unit": "%"
+      },
+      {
+        "id": 96,
+        "title": "线上用户增长",
+        "initial_value": 5000,
+        "target_value": 25000,
+        "current_value": 15000,
+        "weight": 30,
+        "unit": "人"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "title": "战略大客户开发计划",
+    "description": "聚焦行业头部客户，建立战略合作关系",
+    "period": "Q4 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "pending",
+    "score": null,
+    "created_at": "2025-11-15T10:00:00Z",
+    "updated_at": "2025-11-15T10:00:00Z",
+    "approval_comment": null,
+    "keyResults": [
+      {
+        "id": 97,
+        "title": "目标大客户接触率",
+        "initial_value": 30,
+        "target_value": 100,
+        "current_value": 65,
+        "weight": 30,
+        "unit": "%"
+      },
+      {
+        "id": 98,
+        "title": "战略合作签约数量",
+        "initial_value": 0,
+        "target_value": 5,
+        "current_value": 2,
+        "weight": 40,
+        "unit": "家"
+      },
+      {
+        "id": 99,
+        "title": "大客户贡献销售额占比",
+        "initial_value": 25,
+        "target_value": 45,
+        "current_value": 32,
+        "weight": 30,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "title": "销售团队能力矩阵建设",
+    "description": "建立销售人员能力评估体系，实施针对性提升计划",
+    "period": "Q4 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "draft",
+    "score": null,
+    "created_at": "2025-12-05T10:00:00Z",
+    "updated_at": "2025-12-05T10:00:00Z",
+    "approval_comment": null,
+    "keyResults": [
+      {
+        "id": 100,
+        "title": "能力模型搭建完成度",
+        "initial_value": 0,
+        "target_value": 100,
+        "current_value": 0,
+        "weight": 30,
+        "unit": "%"
+      },
+      {
+        "id": 101,
+        "title": "团队成员能力评估覆盖率",
+        "initial_value": 0,
+        "target_value": 100,
+        "current_value": 0,
+        "weight": 35,
+        "unit": "%"
+      },
+      {
+        "id": 102,
+        "title": "重点能力提升计划执行率",
+        "initial_value": 0,
+        "target_value": 90,
+        "current_value": 0,
+        "weight": 35,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "title": "市场情报系统建设",
+    "description": "建立竞争情报收集分析体系，提升市场洞察能力",
+    "period": "Q4 2025",
+    "owner_id": 2,
+    "owner_name": "李明",
+    "approver_id": 5,
+    "approver_name": "孙慧",
+    "status": "approved",
+    "score": null,
+    "created_at": "2025-11-05T09:00:00Z",
+    "updated_at": "2025-11-06T14:30:00Z",
+    "approval_comment": "知己知彼方能百战不殆，批准",
+    "keyResults": [
+      {
+        "id": 103,
+        "title": "情报来源渠道数量",
+        "initial_value": 5,
+        "target_value": 20,
+        "current_value": 12,
+        "weight": 30,
+        "unit": "个"
+      },
+      {
+        "id": 104,
+        "title": "竞品分析报告产出",
+        "initial_value": 2,
+        "target_value": 12,
+        "current_value": 7,
+        "weight": 35,
+        "unit": "份/季度"
+      },
+      {
+        "id": 105,
+        "title": "市场洞察应用转化率",
+        "initial_value": 30,
+        "target_value": 75,
+        "current_value": 55,
+        "weight": 35,
+        "unit": "%"
       }
     ]
   }

@@ -1,0 +1,66 @@
+/*
+ * Design Tokens - 统一配色系统
+ * 参考 Ant Design + 现代低代码平台
+ */
+
+:root {
+  /* Primary Colors - 主色调 */
+  --color-primary: #1890ff;
+  --color-primary-light: #40a9ff;
+  --color-primary-lighter: #69c0ff;
+  --color-primary-dark: #096dd9;
+
+  /* Functional Colors - 功能色 */
+  --color-success: #52c41a;
+  --color-warning: #faad14;
+  --color-error: #ff4d4f;
+  --color-info: #1890ff;
+
+  /* Neutral Colors - 中性色 */
+  --color-text-primary: #262626;
+  --color-text-secondary: #595959;
+  --color-text-tertiary: #8c8c8c;
+  --color-text-disabled: #bfbfbf;
+
+  --color-bg-base: #ffffff;
+  --color-bg-layout: #f5f7fa;
+  --color-bg-container: #ffffff;
+  --color-bg-elevated: #ffffff;
+
+  --color-border-base: #d9d9d9;
+  --color-border-light: #e8e8e8;
+  --color-border-lighter: #f0f0f0;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-base: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Module Colors - 模块专属色 */
+  --color-data-primary: #1890ff;
+  --color-data-bg: #e6f7ff;
+
+  --color-okr-primary: #13c2c2;
+  --color-okr-bg: #e6fffb;
+
+  --color-lowcode-primary: #722ed1;
+  --color-lowcode-bg: #f9f0ff;
+
+  --color-integration-primary: #2f54eb;
+  --color-integration-bg: #f0f5ff;
+}

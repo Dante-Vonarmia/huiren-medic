@@ -1,8 +1,44 @@
 <template>
   <div class="datasource-page">
+    <!-- Platform Integration Header -->
+    <div class="integration-header">
+      <div class="header-content">
+        <div class="header-title">
+          <DatabaseOutlined style="font-size: 28px; color: #262626;" />
+          <div>
+            <h2>企业系统数据集成</h2>
+            <p>实时连接6大核心业务系统，统一数据治理与智能分析</p>
+          </div>
+        </div>
+        <div class="integration-stats">
+          <div class="stat-item">
+            <CloudServerOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">{{ dataSources.length }}</div>
+              <div class="stat-label">系统接入</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <SyncOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">实时</div>
+              <div class="stat-label">数据同步</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <ThunderboltOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">&lt;500ms</div>
+              <div class="stat-label">同步延迟</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="page-header">
-      <h2>数据源配置</h2>
-      <a-button type="primary" @click="router.push('/datasource/create')">
+      <h3>数据源管理</h3>
+      <a-button type="primary" @click="router.push('/datasource-config')">
         <PlusOutlined /> 添加数据源
       </a-button>
     </div>
@@ -113,7 +149,7 @@
               <a-button
                 size="small"
                 type="primary"
-                @click="router.push(`/datasource/${source.id}/config`)"
+                @click="router.push(`/datasource-config/${source.id}`)"
               >
                 <SettingOutlined /> 配置
               </a-button>
@@ -148,7 +184,9 @@ import {
   SyncOutlined,
   ApiOutlined,
   SettingOutlined,
-  DeleteOutlined
+  DeleteOutlined,
+  CloudServerOutlined,
+  ThunderboltOutlined
 } from '@ant-design/icons-vue'
 
 const router = useRouter()
@@ -200,11 +238,37 @@ const dataSources = ref([
     type: 'WMS - 仓储管理系统',
     icon: '📦',
     color: '#722ed1',
-    status: 'disconnected',
+    status: 'connected',
     host: '192.168.1.200:3000',
     database: 'sap_wms',
-    lastSync: '2025-12-10 18:20:00',
+    lastSync: '2025-12-11 08:15:00',
     recordCount: 12450,
+    syncing: false
+  },
+  {
+    id: 5,
+    name: 'MES生产系统',
+    type: 'MES - 生产执行系统',
+    icon: '⚙️',
+    color: '#13c2c2',
+    status: 'connected',
+    host: '192.168.1.150:8090',
+    database: 'mes_production',
+    lastSync: '2025-12-11 10:45:00',
+    recordCount: 32150,
+    syncing: false
+  },
+  {
+    id: 6,
+    name: 'QMS质检系统',
+    type: 'QMS - 质量管理系统',
+    icon: '✓',
+    color: '#eb2f96',
+    status: 'connected',
+    host: '192.168.1.180:9000',
+    database: 'qms_quality',
+    lastSync: '2025-12-11 11:00:00',
+    recordCount: 18760,
     syncing: false
   }
 ])
@@ -327,6 +391,69 @@ const deleteSource = (source) => {
   max-width: 1600px;
 }
 
+.integration-header {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  color: #262626;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.header-title h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.header-title p {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.integration-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.integration-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -334,9 +461,9 @@ const deleteSource = (source) => {
   margin-bottom: 24px;
 }
 
-.page-header h2 {
+.page-header h3 {
   margin: 0;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 600;
 }
 

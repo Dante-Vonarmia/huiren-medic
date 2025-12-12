@@ -1,6 +1,7 @@
 <script setup>
 import { useUserStore } from './stores/user'
 import { onMounted } from 'vue'
+import { themeConfig } from './theme'
 
 const userStore = useUserStore()
 
@@ -11,7 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <a-config-provider>
+  <a-config-provider :theme="themeConfig">
     <router-view />
   </a-config-provider>
 </template>

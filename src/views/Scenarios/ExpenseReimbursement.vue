@@ -12,8 +12,34 @@
       </template>
     </a-page-header>
 
+    <!-- 统计卡片 - 顶部横向布局 -->
+    <a-row :gutter="16" style="margin-bottom: 16px;">
+      <a-col :span="8">
+        <a-card size="small">
+          <a-statistic title="本月报销总额" :value="stats.monthlyTotal / 10000" suffix="万元" :precision="2">
+            <template #prefix><DollarOutlined /></template>
+          </a-statistic>
+        </a-card>
+      </a-col>
+      <a-col :span="8">
+        <a-card size="small">
+          <a-statistic title="待审批" :value="stats.pending">
+            <template #prefix><ClockCircleOutlined /></template>
+          </a-statistic>
+        </a-card>
+      </a-col>
+      <a-col :span="8">
+        <a-card size="small">
+          <a-statistic title="本月已完成" :value="stats.completed || 0">
+            <template #prefix><CheckCircleOutlined /></template>
+          </a-statistic>
+        </a-card>
+      </a-col>
+    </a-row>
+
+    <!-- 报销列表 - 全宽 -->
     <a-row :gutter="16">
-      <a-col :span="16">
+      <a-col :span="24">
         <a-card title="报销列表">
           <a-table
             :columns="columns"
@@ -57,43 +83,6 @@
               </a-space>
             </template>
           </a-table>
-        </a-card>
-      </a-col>
-
-      <a-col :span="8">
-        <a-card title="报销统计" style="margin-bottom: 16px">
-          <a-statistic title="本月报销总额" :value="stats.monthlyTotal / 10000" suffix="万元" :precision="2">
-            <template #prefix><DollarOutlined /></template>
-          </a-statistic>
-          <a-divider />
-          <a-statistic title="待审批" :value="stats.pending">
-            <template #prefix><ClockCircleOutlined /></template>
-          </a-statistic>
-        </a-card>
-
-        <a-card title="审批流程说明" size="small">
-          <a-timeline size="small">
-            <a-timeline-item color="blue">
-              <strong>1. 提交申请</strong>
-              <div style="color: #999; font-size: 12px">填写报销信息，上传发票</div>
-            </a-timeline-item>
-            <a-timeline-item color="green">
-              <strong>2. 部门经理审批</strong>
-              <div style="color: #999; font-size: 12px">审核费用合理性</div>
-            </a-timeline-item>
-            <a-timeline-item color="orange">
-              <strong>3. 总经理审批</strong>
-              <div style="color: #999; font-size: 12px">金额>5000需总经理审批</div>
-            </a-timeline-item>
-            <a-timeline-item color="purple">
-              <strong>4. 财务审核</strong>
-              <div style="color: #999; font-size: 12px">发票验证，生成付款单</div>
-            </a-timeline-item>
-            <a-timeline-item color="cyan">
-              <strong>5. 自动付款</strong>
-              <div style="color: #999; font-size: 12px">对接财务系统，自动转账</div>
-            </a-timeline-item>
-          </a-timeline>
         </a-card>
       </a-col>
     </a-row>

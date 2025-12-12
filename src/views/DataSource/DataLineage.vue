@@ -211,32 +211,32 @@ const exportGraph = () => {
 
 .source-node {
   border-color: #1890ff;
-  background: linear-gradient(135deg, #e6f7ff 0%, #bae7ff 100%);
+  background: #e6f7ff;
 }
 
 .transform-node {
   border-color: #faad14;
-  background: linear-gradient(135deg, #fffbe6 0%, #ffe58f 100%);
+  background: #fffbe6;
 }
 
 .platform-node {
   border-color: #52c41a;
-  background: linear-gradient(135deg, #f6ffed 0%, #b7eb8f 100%);
+  background: #f6ffed;
 }
 
 .kpi-node {
   border-color: #722ed1;
-  background: linear-gradient(135deg, #f9f0ff 0%, #d3adf7 100%);
+  background: #f9f0ff;
 }
 
 .result-node {
   border-color: #eb2f96;
-  background: linear-gradient(135deg, #fff0f6 0%, #ffadd2 100%);
+  background: #fff0f6;
 }
 
 .final-node {
   border-color: #faad14;
-  background: linear-gradient(135deg, #fff7e6 0%, #ffd666 100%);
+  background: #fff7e6;
 }
 
 .node-icon {
@@ -275,7 +275,7 @@ const exportGraph = () => {
 .arrow-line {
   width: 2px;
   height: 40px;
-  background: linear-gradient(to bottom, #d9d9d9 0%, #1890ff 100%);
+  background: #1890ff;
   position: relative;
 }
 

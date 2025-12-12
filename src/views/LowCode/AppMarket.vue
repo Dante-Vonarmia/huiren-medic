@@ -1,17 +1,46 @@
 <template>
   <div class="app-market">
-    <a-page-header
-      title="应用市场"
-      sub-title="快速安装预置应用模板"
-    >
-      <template #extra>
+    <!-- Platform Header -->
+    <div class="market-header">
+      <div class="header-content">
+        <div class="header-title">
+          <AppstoreOutlined style="font-size: 28px; color: #262626;" />
+          <div>
+            <h2>应用市场</h2>
+            <p>快速安装预置应用模板，开箱即用的业务场景</p>
+          </div>
+        </div>
+        <div class="market-stats">
+          <div class="stat-item">
+            <RocketOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">{{ apps.length }}+</div>
+              <div class="stat-label">应用模板</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <DownloadOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">{{ totalDownloads }}+</div>
+              <div class="stat-label">总安装次数</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <StarFilled style="font-size: 20px; color: #ffd700;" />
+            <div>
+              <div class="stat-value">{{ avgRating }}</div>
+              <div class="stat-label">平均评分</div>
+            </div>
+          </div>
+        </div>
         <a-input-search
           v-model:value="searchText"
           placeholder="搜索应用"
           style="width: 300px"
+          size="large"
         />
-      </template>
-    </a-page-header>
+      </div>
+    </div>
 
     <a-tabs v-model:activeKey="category">
       <a-tab-pane key="all" tab="全部应用"></a-tab-pane>
@@ -68,7 +97,9 @@ import { message } from 'ant-design-vue'
 import {
   DownloadOutlined,
   StarFilled,
-  EyeOutlined
+  EyeOutlined,
+  AppstoreOutlined,
+  RocketOutlined
 } from '@ant-design/icons-vue'
 
 const category = ref('all')
@@ -149,6 +180,15 @@ const apps = ref([
   }
 ])
 
+const totalDownloads = computed(() => {
+  return apps.value.reduce((sum, app) => sum + app.downloads, 0)
+})
+
+const avgRating = computed(() => {
+  const total = apps.value.reduce((sum, app) => sum + app.rating, 0)
+  return (total / apps.value.length).toFixed(1)
+})
+
 const filteredApps = computed(() => {
   let result = apps.value
   if (category.value !== 'all') {
@@ -180,6 +220,69 @@ const previewApp = (app) => {
   padding: 24px;
   background: #f5f5f5;
   min-height: calc(100vh - 64px);
+}
+
+.market-header {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  color: #262626;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.header-title h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.header-title p {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.market-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.market-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-top: 4px;
 }
 
 .app-card {

@@ -1,22 +1,48 @@
 <template>
   <div class="sync-task-list">
-    <a-page-header
-      title="数据同步任务"
-      sub-title="管理跨系统数据同步任务，支持定时同步与实时同步"
-    >
-      <template #extra>
+    <!-- Platform Header -->
+    <div class="sync-header">
+      <div class="header-content">
+        <div class="header-title">
+          <SyncOutlined style="font-size: 28px; color: #262626;" />
+          <div>
+            <h2>数据同步任务</h2>
+            <p>跨系统实时数据同步，支持增量与全量同步策略</p>
+          </div>
+        </div>
+        <div class="sync-stats">
+          <div class="stat-item">
+            <DatabaseOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">{{ taskStats.total }}</div>
+              <div class="stat-label">同步任务</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <ThunderboltOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">{{ taskStats.todaySync }}</div>
+              <div class="stat-label">今日同步</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <CheckCircleOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">{{ taskStats.successRate }}%</div>
+              <div class="stat-label">成功率</div>
+            </div>
+          </div>
+        </div>
         <a-space>
-          <a-button type="primary" @click="createTask">
-            <template #icon><PlusOutlined /></template>
-            创建同步任务
+          <a-button type="primary" @click="createTask" ghost>
+            <PlusOutlined /> 创建任务
           </a-button>
-          <a-button @click="refreshTasks">
-            <template #icon><ReloadOutlined /></template>
-            刷新
+          <a-button @click="refreshTasks" ghost>
+            <ReloadOutlined /> 刷新
           </a-button>
         </a-space>
-      </template>
-    </a-page-header>
+      </div>
+    </div>
 
     <!-- 统计卡片 -->
     <a-row :gutter="16" style="margin-bottom: 24px">
@@ -589,6 +615,69 @@ onMounted(() => {
   padding: 24px;
   background: #f5f5f5;
   min-height: calc(100vh - 64px);
+}
+
+.sync-header {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  color: #262626;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.header-title h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.header-title p {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.sync-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.sync-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-top: 4px;
 }
 
 .log-container {

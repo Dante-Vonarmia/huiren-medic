@@ -80,35 +80,28 @@
           </a-form-item>
         </a-form>
 
-        <a-divider style="margin: 20px 0; font-size: 12px; color: #999;">演示账号</a-divider>
+        <a-divider style="margin: 16px 0; font-size: 12px; color: #999;">快速测试 (Demo)</a-divider>
 
         <div class="demo-accounts">
-          <div class="account-item" @click="fillAccount(accounts[0])">
-            <UserOutlined />
+          <div
+            v-for="(account, index) in accounts"
+            :key="index"
+            class="account-item"
+            @click="fillAccount(account)"
+          >
+            <CrownOutlined v-if="account.icon === 'CrownOutlined'" />
+            <TeamOutlined v-else-if="account.icon === 'TeamOutlined'" />
+            <UserOutlined v-else />
             <div>
-              <div class="account-name">zhang.wei</div>
-              <div class="account-role">销售部员工</div>
-            </div>
-          </div>
-          <div class="account-item" @click="fillAccount(accounts[1])">
-            <TeamOutlined />
-            <div>
-              <div class="account-name">li.ming</div>
-              <div class="account-role">销售部经理</div>
-            </div>
-          </div>
-          <div class="account-item" @click="fillAccount(accounts[2])">
-            <CrownOutlined />
-            <div>
-              <div class="account-name">admin</div>
-              <div class="account-role">系统管理员</div>
+              <div class="account-name">{{ account.username }}</div>
+              <div class="account-role">{{ account.role }}</div>
             </div>
           </div>
         </div>
 
         <div class="login-footer">
           <SafetyCertificateOutlined />
-          密码：Huiren@2025 | 管理员：Admin@2025
+          所有测试账号密码：123456
         </div>
       </div>
     </div>
@@ -139,8 +132,8 @@ const userStore = useUserStore()
 const loading = ref(false)
 
 const loginForm = reactive({
-  username: 'zhang.wei',
-  password: 'Huiren@2025'
+  username: 'admin',
+  password: '123456'
 })
 
 const rules = {
@@ -149,9 +142,12 @@ const rules = {
 }
 
 const accounts = [
-  { username: 'zhang.wei', password: 'Huiren@2025' },
-  { username: 'li.ming', password: 'Huiren@2025' },
-  { username: 'admin', password: 'Admin@2025' }
+  { username: 'admin', password: '123456', role: '系统管理员', icon: 'CrownOutlined' },
+  { username: 'li.ming', password: '123456', role: '销售部经理', icon: 'TeamOutlined' },
+  { username: 'zhang.wei', password: '123456', role: '销售员工', icon: 'UserOutlined' },
+  { username: 'zhou.lan', password: '123456', role: '生产部经理', icon: 'TeamOutlined' },
+  { username: 'liu.qiang', password: '123456', role: '生产员工', icon: 'UserOutlined' },
+  { username: 'chen.hr', password: '123456', role: 'HR', icon: 'UserOutlined' }
 ]
 
 const fillAccount = (account) => {
@@ -186,10 +182,10 @@ const handleLogin = async () => {
   overflow: hidden;
 }
 
-/* Left Brand Section */
+/* Left Brand Section - 红色主题 */
 .brand-section {
   flex: 1;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+  background: linear-gradient(135deg, #d81e06 0%, #a81505 50%, #d81e06 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -202,20 +198,31 @@ const handleLogin = async () => {
   position: absolute;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: drift 20s linear infinite;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 2px, transparent 2px);
+  background-size: 60px 60px;
+  animation: drift 25s linear infinite;
+}
+
+.brand-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(ellipse at top left, rgba(255, 107, 107, 0.3), transparent 50%),
+              radial-gradient(ellipse at bottom right, rgba(168, 21, 5, 0.3), transparent 50%);
 }
 
 @keyframes drift {
   0% { transform: translate(0, 0); }
-  100% { transform: translate(50px, 50px); }
+  100% { transform: translate(60px, 60px); }
 }
 
 .brand-content {
   position: relative;
   z-index: 1;
-  color: white;
+  color: #ffffff;
   max-width: 500px;
   padding: 40px;
 }
@@ -240,13 +247,15 @@ const handleLogin = async () => {
   font-weight: 700;
   margin: 0 0 10px 0;
   letter-spacing: 2px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .brand-subtitle {
   font-size: 18px;
-  opacity: 0.9;
+  opacity: 0.95;
   margin: 0;
   font-weight: 300;
+  letter-spacing: 1px;
 }
 
 .features {
@@ -259,18 +268,24 @@ const handleLogin = async () => {
   gap: 12px;
   margin-bottom: 16px;
   font-size: 16px;
+  opacity: 0.95;
 }
 
 .feature-icon {
   font-size: 20px;
-  color: #4ade80;
+  color: #ffd700;
+  filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.3));
 }
 
 .slogan {
   font-size: 14px;
-  opacity: 0.8;
-  line-height: 1.6;
+  opacity: 0.85;
+  line-height: 1.8;
   font-weight: 300;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border-left: 3px solid rgba(255, 215, 0, 0.6);
 }
 
 /* Right Login Section */
@@ -295,16 +310,20 @@ const handleLogin = async () => {
 .card-header h2 {
   font-size: 28px;
   font-weight: 600;
-  color: #1a1a1a;
+  background: linear-gradient(135deg, #262626 0%, #595959 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin: 0 0 8px 0;
 }
 
 .card-header p {
   font-size: 13px;
-  color: #999;
+  color: #8c8c8c;
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  font-weight: 500;
 }
 
 .login-form {
@@ -312,16 +331,22 @@ const handleLogin = async () => {
 }
 
 .login-btn {
-  height: 44px;
+  height: 48px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   margin-top: 8px;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(216, 30, 6, 0.2);
+}
+
+.login-btn:hover {
+  box-shadow: 0 6px 16px rgba(216, 30, 6, 0.3);
 }
 
 .demo-accounts {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   margin-top: 16px;
 }
 
@@ -329,23 +354,48 @@ const handleLogin = async () => {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
-  border-radius: 8px;
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.account-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #d81e06 0%, #ff6b6b 100%);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
 }
 
 .account-item:hover {
-  background: #e9ecef;
-  border-color: #1890ff;
+  background: linear-gradient(135deg, rgba(216, 30, 6, 0.05) 0%, rgba(216, 30, 6, 0.02) 100%);
+  border-color: rgba(216, 30, 6, 0.3);
   transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(216, 30, 6, 0.1);
+}
+
+.account-item:hover::before {
+  transform: scaleY(1);
 }
 
 .account-item > span {
   font-size: 18px;
-  color: #1890ff;
+  color: #d81e06;
+  transition: all 0.3s ease;
+}
+
+.account-item:hover > span {
+  color: #ff6b6b;
+  transform: scale(1.1);
 }
 
 .account-name {

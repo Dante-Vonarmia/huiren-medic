@@ -1,0 +1,98 @@
+/*
+ * 统一的页面Header样式
+ * 简洁专业，去掉花里胡哨的渐变
+ */
+
+.page-header-clean {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.title-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+  line-height: 1.2;
+}
+
+.title-tags {
+  display: flex;
+  gap: 8px;
+}
+
+.tag-item {
+  display: inline-block;
+  padding: 2px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.tag-blue {
+  background: #e6f7ff;
+  color: #1890ff;
+  border: 1px solid #91d5ff;
+}
+
+.tag-cyan {
+  background: #e6fffb;
+  color: #13c2c2;
+  border: 1px solid #87e8de;
+}
+
+.tag-purple {
+  background: #f9f0ff;
+  color: #722ed1;
+  border: 1px solid #d3adf7;
+}
+
+.tag-green {
+  background: #f6ffed;
+  color: #52c41a;
+  border: 1px solid #b7eb8f;
+}
+
+.page-subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+.header-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.stat-box {
+  text-align: center;
+  min-width: 80px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #8c8c8c;
+}

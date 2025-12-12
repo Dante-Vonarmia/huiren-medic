@@ -1,11 +1,42 @@
 <template>
   <div class="okr-list-page">
-    <div class="page-header">
-      <h2>OKR管理</h2>
-      <a-button type="primary" @click="router.push('/okr/create')">
-        <template #icon><PlusOutlined /></template>
-        创建OKR
-      </a-button>
+    <!-- Platform Header -->
+    <div class="okr-header">
+      <div class="header-content">
+        <div class="header-title">
+          <TrophyOutlined style="font-size: 28px; color: #262626;" />
+          <div>
+            <h2>OKR目标管理</h2>
+            <p>Objectives & Key Results - 目标与关键成果对齐</p>
+          </div>
+        </div>
+        <div class="okr-stats">
+          <div class="stat-item">
+            <RocketOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">{{ myOKRList.length }}</div>
+              <div class="stat-label">我的OKR</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <TeamOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">{{ teamOKRList.length }}</div>
+              <div class="stat-label">团队OKR</div>
+            </div>
+          </div>
+          <div class="stat-item">
+            <ThunderboltOutlined style="font-size: 20px;" />
+            <div>
+              <div class="stat-value">{{ avgProgress }}%</div>
+              <div class="stat-label">平均进度</div>
+            </div>
+          </div>
+        </div>
+        <a-button type="primary" @click="router.push('/okr-create')" ghost size="large">
+          <PlusOutlined /> 创建OKR
+        </a-button>
+      </div>
     </div>
 
     <a-card style="margin-bottom: 16px;">
@@ -43,7 +74,7 @@
                     v-if="record.status === 'draft'"
                     size="small"
                     type="primary"
-                    @click="router.push(`/okr/${record.id}/edit`)"
+                    @click="router.push(`/okr-detail/${record.id}`)"
                   >
                     编辑
                   </a-button>
@@ -112,13 +143,26 @@ import { useRouter } from 'vue-router'
 import { useOKRStore } from '../../stores/okr'
 import { useUserStore } from '../../stores/user'
 import { message, Modal } from 'ant-design-vue'
-import { PlusOutlined } from '@ant-design/icons-vue'
+import {
+  PlusOutlined,
+  TrophyOutlined,
+  RocketOutlined,
+  TeamOutlined,
+  ThunderboltOutlined
+} from '@ant-design/icons-vue'
 
 const router = useRouter()
 const okrStore = useOKRStore()
 const userStore = useUserStore()
 
 const activeTab = ref('my')
+
+const avgProgress = computed(() => {
+  const allOKRs = [...myOKRList.value, ...teamOKRList.value]
+  if (allOKRs.length === 0) return 0
+  const totalProgress = allOKRs.reduce((sum, okr) => sum + calculateProgress(okr), 0)
+  return Math.round(totalProgress / allOKRs.length)
+})
 
 const columns = [
   { title: '目标标题', dataIndex: 'title', key: 'title', width: 250, fixed: 'left' },
@@ -186,12 +230,11 @@ const calculateProgress = (okr) => {
 }
 
 const viewDetail = (id) => {
-  router.push(`/okr/${id}`)
+  router.push(`/okr-detail/${id}`)
 }
 
 const updateProgress = (record) => {
-  message.info('跳转到进度更新页面')
-  router.push(`/okr/${record.id}`)
+  router.push(`/okr-detail/${record.id}`)
 }
 
 const approveOKR = async (record) => {
@@ -219,6 +262,69 @@ onMounted(() => {
 <style scoped>
 .okr-list-page {
   max-width: 1400px;
+}
+
+.okr-header {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  color: #262626;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.header-title h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #262626;
+}
+
+.header-title p {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.okr-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.okr-stats .stat-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border: 1px solid #e8e8e8;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-top: 4px;
 }
 
 .page-header {

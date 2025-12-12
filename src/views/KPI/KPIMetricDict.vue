@@ -1,201 +1,279 @@
 <template>
   <div class="kpi-metric-dict">
-    <a-page-header
-      title="KPI指标字典"
-      sub-title="定义业务指标计算规则，自动聚合多源数据"
-    >
-      <template #extra>
-        <a-space>
-          <a-button type="primary" @click="createMetric">
-            <template #icon><PlusOutlined /></template>
-            创建指标
-          </a-button>
-          <a-button @click="batchCalculate">
-            <template #icon><ThunderboltOutlined /></template>
-            批量试算
-          </a-button>
-        </a-space>
-      </template>
-    </a-page-header>
+    <div class="page-header">
+      <div class="header-content">
+        <h1>KPI指标字典</h1>
+        <p class="header-desc">
+          📌 定义业务指标计算规则，自动从ERP/CRM/MES等系统拉取数据并计算<br>
+          💡 <strong>试算</strong>=模拟执行SQL公式查看结果 | <strong>创建指标</strong>=配置新的KPI计算规则
+        </p>
+      </div>
+      <a-space size="middle">
+        <a-button type="primary" @click="createMetric" size="large">
+          <template #icon><PlusOutlined /></template>
+          创建指标
+        </a-button>
+        <a-button @click="batchCalculate" size="large">
+          <template #icon><ThunderboltOutlined /></template>
+          批量试算
+        </a-button>
+      </a-space>
+    </div>
 
     <!-- 指标分类标签 -->
-    <a-card style="margin-bottom: 16px">
-      <a-tabs v-model:activeKey="activeCategory">
-        <a-tab-pane key="all" tab="全部指标">
-          <a-badge :count="metrics.length" :overflow-count="99" />
-        </a-tab-pane>
-        <a-tab-pane key="sales" tab="销售类">
-          <a-badge :count="metrics.filter(m => m.category === 'sales').length" />
-        </a-tab-pane>
-        <a-tab-pane key="production" tab="生产类">
-          <a-badge :count="metrics.filter(m => m.category === 'production').length" />
-        </a-tab-pane>
-        <a-tab-pane key="quality" tab="质量类">
-          <a-badge :count="metrics.filter(m => m.category === 'quality').length" />
-        </a-tab-pane>
-        <a-tab-pane key="attendance" tab="考勤类">
-          <a-badge :count="metrics.filter(m => m.category === 'attendance').length" />
-        </a-tab-pane>
-      </a-tabs>
-    </a-card>
+    <div class="category-tabs">
+      <div
+        v-for="cat in categories"
+        :key="cat.key"
+        :class="['category-tab', { active: activeCategory === cat.key }]"
+        @click="activeCategory = cat.key"
+      >
+        <span class="tab-icon">{{ cat.icon }}</span>
+        <span class="tab-name">{{ cat.name }}</span>
+        <span class="tab-count">{{ cat.count }}</span>
+      </div>
+    </div>
 
     <!-- 指标卡片列表 -->
-    <a-row :gutter="[16, 16]">
-      <a-col
+    <div class="metrics-grid">
+      <div
         v-for="metric in filteredMetrics"
         :key="metric.metric_id"
-        :xs="24"
-        :sm="12"
-        :md="12"
-        :lg="8"
-        :xl="8"
+        :class="['metric-card', { disabled: !metric.is_active }]"
       >
-        <a-card
-          hoverable
-          :class="['metric-card', metric.is_active ? '' : 'metric-disabled']"
-        >
-          <template #title>
-            <div class="metric-header">
-              <span class="metric-icon" :style="{ background: getCategoryColor(metric.category) }">
-                {{ getCategoryIcon(metric.category) }}
-              </span>
-              <div class="metric-title">
-                <div>{{ metric.metric_name }}</div>
-                <a-tag :color="getCategoryColor(metric.category)" size="small">
-                  {{ getCategoryName(metric.category) }}
-                </a-tag>
-              </div>
+        <!-- 卡片头部 -->
+        <div class="card-header" :style="{ background: getCategoryGradient(metric.category) }">
+          <div class="header-left">
+            <div class="metric-icon">{{ getCategoryIcon(metric.category) }}</div>
+            <div class="metric-info">
+              <h3>{{ metric.metric_name }}</h3>
+              <span class="metric-category">{{ getCategoryName(metric.category) }}</span>
             </div>
-          </template>
-
-          <template #extra>
-            <a-switch
-              v-model:checked="metric.is_active"
-              checked-children="启用"
-              un-checked-children="停用"
-              size="small"
-            />
-          </template>
-
-          <div class="metric-content">
-            <!-- 指标描述 -->
-            <div class="metric-description">
-              {{ metric.description }}
-            </div>
-
-            <!-- 数据来源 -->
-            <a-divider style="margin: 12px 0" />
-            <div class="metric-info-item">
-              <DatabaseOutlined style="color: #1890ff; margin-right: 8px" />
-              <span class="label">数据来源:</span>
-              <span class="value">{{ metric.data_source }}</span>
-            </div>
-
-            <!-- 计算公式 -->
-            <div class="metric-info-item">
-              <CalculatorOutlined style="color: #52c41a; margin-right: 8px" />
-              <span class="label">计算方式:</span>
-              <span class="value">{{ metric.calculation_type }}</span>
-            </div>
-
-            <!-- 刷新频率 -->
-            <div class="metric-info-item">
-              <ClockCircleOutlined style="color: #faad14; margin-right: 8px" />
-              <span class="label">刷新频率:</span>
-              <span class="value">{{ metric.refresh_frequency }}</span>
-            </div>
-
-            <!-- 负责人 -->
-            <div class="metric-info-item">
-              <UserOutlined style="color: #722ed1; margin-right: 8px" />
-              <span class="label">负责人:</span>
-              <span class="value">{{ metric.owner }}</span>
-            </div>
-
-            <!-- 计算公式预览 -->
-            <a-divider style="margin: 12px 0" />
-            <div class="formula-preview">
-              <div class="formula-label">
-                <CodeOutlined /> 计算公式
-              </div>
-              <div class="formula-content">
-                <pre>{{ metric.formula_preview }}</pre>
-              </div>
-            </div>
-
-            <!-- 试算结果 -->
-            <div v-if="metric.last_calculation" class="calculation-result">
-              <a-divider style="margin: 12px 0" />
-              <div class="result-header">
-                <LineChartOutlined /> 最近试算结果
-              </div>
-              <div class="result-value">
-                <span class="value-number">{{ metric.last_calculation.value }}</span>
-                <span class="value-unit">{{ metric.last_calculation.unit }}</span>
-                <a-tag
-                  v-if="metric.last_calculation.trend === 'up'"
-                  color="success"
-                  style="margin-left: 8px"
-                >
-                  <ArrowUpOutlined /> {{ metric.last_calculation.change }}
-                </a-tag>
-                <a-tag
-                  v-else-if="metric.last_calculation.trend === 'down'"
-                  color="error"
-                  style="margin-left: 8px"
-                >
-                  <ArrowDownOutlined /> {{ metric.last_calculation.change }}
-                </a-tag>
-              </div>
-              <div class="result-time">
-                更新时间: {{ metric.last_calculation.time }}
-              </div>
-            </div>
-
-            <!-- 操作按钮 -->
-            <a-divider style="margin: 12px 0" />
-            <a-space style="width: 100%; justify-content: space-between">
-              <a-button type="primary" size="small" @click="testCalculate(metric)">
-                <ThunderboltOutlined /> 试算
-              </a-button>
-              <a-dropdown>
-                <a-button size="small">
-                  更多 <DownOutlined />
-                </a-button>
-                <template #overlay>
-                  <a-menu>
-                    <a-menu-item @click="viewFormula(metric)">
-                      <EyeOutlined /> 查看完整公式
-                    </a-menu-item>
-                    <a-menu-item @click="viewHistory(metric)">
-                      <HistoryOutlined /> 计算历史
-                    </a-menu-item>
-                    <a-menu-item @click="editMetric(metric)">
-                      <EditOutlined /> 编辑
-                    </a-menu-item>
-                    <a-menu-divider />
-                    <a-menu-item danger @click="deleteMetric(metric)">
-                      <DeleteOutlined /> 删除
-                    </a-menu-item>
-                  </a-menu>
-                </template>
-              </a-dropdown>
-            </a-space>
           </div>
-        </a-card>
-      </a-col>
-    </a-row>
+          <a-switch
+            v-model:checked="metric.is_active"
+            size="small"
+          />
+        </div>
 
-    <!-- 公式详情模态框 -->
+        <!-- 卡片内容 -->
+        <div class="card-body">
+          <!-- 描述 -->
+          <p class="metric-description">{{ metric.description }}</p>
+
+          <!-- 数据流说明 -->
+          <div class="data-flow-info">
+            <div class="flow-step">
+              <DatabaseOutlined class="flow-icon" />
+              <span>从 <strong>{{ metric.data_source }}</strong> 拉取数据</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <CalculatorOutlined class="flow-icon" />
+              <span>执行 <strong>{{ metric.calculation_type }}</strong></span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step">
+              <CheckCircleOutlined class="flow-icon" />
+              <span>得出结果</span>
+            </div>
+          </div>
+
+          <!-- 试算结果 -->
+          <div v-if="metric.last_calculation" class="result-section">
+            <div class="result-label">最近试算结果</div>
+            <div class="result-display">
+              <span class="result-value">{{ metric.last_calculation.value }}</span>
+              <span class="result-unit">{{ metric.last_calculation.unit }}</span>
+              <a-tag
+                v-if="metric.last_calculation.trend === 'up'"
+                color="success"
+              >
+                <ArrowUpOutlined /> {{ metric.last_calculation.change }}
+              </a-tag>
+              <a-tag
+                v-else-if="metric.last_calculation.trend === 'down'"
+                color="error"
+              >
+                <ArrowDownOutlined /> {{ metric.last_calculation.change }}
+              </a-tag>
+            </div>
+            <div class="result-time">{{ metric.last_calculation.time }}</div>
+          </div>
+
+          <!-- 指标详情 -->
+          <div class="metric-details">
+            <div class="detail-item">
+              <DatabaseOutlined class="detail-icon" />
+              <div class="detail-content">
+                <span class="detail-label">数据来源</span>
+                <span class="detail-value">{{ metric.data_source }}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <CalculatorOutlined class="detail-icon" />
+              <div class="detail-content">
+                <span class="detail-label">计算方式</span>
+                <span class="detail-value">{{ metric.calculation_type }}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <ClockCircleOutlined class="detail-icon" />
+              <div class="detail-content">
+                <span class="detail-label">刷新频率</span>
+                <span class="detail-value">{{ metric.refresh_frequency }}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <UserOutlined class="detail-icon" />
+              <div class="detail-content">
+                <span class="detail-label">负责人</span>
+                <span class="detail-value">{{ metric.owner }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 公式预览 -->
+          <div class="formula-section">
+            <div class="formula-header">
+              <CodeOutlined /> 计算公式
+            </div>
+            <div class="formula-code">{{ metric.formula_preview }}</div>
+          </div>
+        </div>
+
+        <!-- 卡片底部操作 -->
+        <div class="card-footer">
+          <a-button type="primary" size="small" @click="testCalculate(metric)">
+            <ThunderboltOutlined /> 试算
+          </a-button>
+          <a-button size="small" @click="viewFormula(metric)">
+            <EyeOutlined /> 查看公式
+          </a-button>
+          <a-dropdown>
+            <a-button size="small">
+              <MoreOutlined />
+            </a-button>
+            <template #overlay>
+              <a-menu>
+                <a-menu-item @click="viewHistory(metric)">
+                  <HistoryOutlined /> 计算历史
+                </a-menu-item>
+                <a-menu-item @click="editMetric(metric)">
+                  <EditOutlined /> 编辑
+                </a-menu-item>
+                <a-menu-divider />
+                <a-menu-item danger @click="deleteMetric(metric)">
+                  <DeleteOutlined /> 删除
+                </a-menu-item>
+              </a-menu>
+            </template>
+          </a-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <!-- 创建指标模态框 -->
     <a-modal
-      v-model:visible="formulaModalVisible"
-      title="计算公式详情"
+      v-model:visible="createModalVisible"
+      title="创建KPI指标"
       width="800px"
-      :footer="null"
+      @ok="handleCreateMetric"
+      ok-text="创建"
+      cancel-text="取消"
+    >
+      <a-form :model="newMetric" layout="vertical">
+        <a-form-item label="指标名称" required>
+          <a-input v-model:value="newMetric.name" placeholder="例如：订单准时率" />
+        </a-form-item>
+
+        <a-form-item label="指标分类" required>
+          <a-select v-model:value="newMetric.category" placeholder="选择分类">
+            <a-select-option value="sales">销售类</a-select-option>
+            <a-select-option value="production">生产类</a-select-option>
+            <a-select-option value="quality">质量类</a-select-option>
+            <a-select-option value="attendance">考勤类</a-select-option>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item label="指标描述" required>
+          <a-textarea
+            v-model:value="newMetric.description"
+            placeholder="例如：按期完成订单数占总订单数的百分比"
+            :rows="2"
+          />
+        </a-form-item>
+
+        <a-form-item label="数据来源" required>
+          <a-select v-model:value="newMetric.dataSource" placeholder="选择数据源">
+            <a-select-option value="ERP订单表">ERP订单表</a-select-option>
+            <a-select-option value="CRM客户表">CRM客户表</a-select-option>
+            <a-select-option value="MES生产表">MES生产表</a-select-option>
+            <a-select-option value="钉钉考勤表">钉钉考勤表</a-select-option>
+            <a-select-option value="平台OKR表">平台OKR表</a-select-option>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item label="计算类型" required>
+          <a-select v-model:value="newMetric.calculationType" placeholder="选择计算类型">
+            <a-select-option value="SQL聚合">SQL聚合</a-select-option>
+            <a-select-option value="SQL多表关联">SQL多表关联</a-select-option>
+            <a-select-option value="JavaScript计算">JavaScript计算</a-select-option>
+          </a-select>
+        </a-form-item>
+
+        <a-form-item label="计算公式" required>
+          <a-textarea
+            v-model:value="newMetric.formula"
+            placeholder="输入SQL查询或JavaScript代码"
+            :rows="6"
+            style="font-family: monospace;"
+          />
+          <div style="margin-top: 8px; font-size: 12px; color: #8c8c8c;">
+            💡 提示：可以使用变量如 :employee_id, :period 等
+          </div>
+        </a-form-item>
+
+        <a-row :gutter="16">
+          <a-col :span="12">
+            <a-form-item label="刷新频率" required>
+              <a-select v-model:value="newMetric.refreshFrequency">
+                <a-select-option value="实时">实时</a-select-option>
+                <a-select-option value="每小时">每小时</a-select-option>
+                <a-select-option value="每日09:00">每日09:00</a-select-option>
+                <a-select-option value="每周一">每周一</a-select-option>
+              </a-select>
+            </a-form-item>
+          </a-col>
+          <a-col :span="12">
+            <a-form-item label="负责人" required>
+              <a-input v-model:value="newMetric.owner" placeholder="例如：销售部-数据分析师" />
+            </a-form-item>
+          </a-col>
+        </a-row>
+      </a-form>
+    </a-modal>
+
+    <!-- 试算参数模态框 -->
+    <a-modal
+      v-model:visible="testCalcModalVisible"
+      title="指标试算"
+      width="700px"
+      @ok="handleTestCalculate"
+      ok-text="执行试算"
+      cancel-text="取消"
     >
       <div v-if="selectedMetric">
-        <a-descriptions :column="1" bordered>
-          <a-descriptions-item label="指标名称">
+        <a-alert
+          message="试算说明"
+          description="试算会模拟执行计算公式，从数据源拉取真实数据并计算指标值。请先配置必要的参数。"
+          type="info"
+          show-icon
+          style="margin-bottom: 16px"
+        />
+
+        <a-descriptions title="指标信息" :column="2" bordered size="small" style="margin-bottom: 16px">
+          <a-descriptions-item label="指标名称" :span="2">
             {{ selectedMetric.metric_name }}
           </a-descriptions-item>
           <a-descriptions-item label="数据来源">
@@ -206,18 +284,91 @@
           </a-descriptions-item>
         </a-descriptions>
 
-        <a-divider>SQL 查询语句</a-divider>
-        <div class="code-block">
-          <pre>{{ selectedMetric.formula_full }}</pre>
+        <h4 style="margin-bottom: 12px;">计算参数</h4>
+        <a-form layout="vertical">
+          <a-form-item
+            v-for="param in selectedMetric.params"
+            :key="param.name"
+            :label="param.description"
+            :required="param.required"
+          >
+            <a-input
+              v-if="param.type === 'string'"
+              v-model:value="testParams[param.name]"
+              :placeholder="`请输入${param.description}`"
+            />
+            <a-date-picker
+              v-else-if="param.type === 'date'"
+              v-model:value="testParams[param.name]"
+              style="width: 100%"
+            />
+            <a-select
+              v-else-if="param.type === 'quarter'"
+              v-model:value="testParams[param.name]"
+              placeholder="选择季度"
+            >
+              <a-select-option value="Q1">Q1 (1-3月)</a-select-option>
+              <a-select-option value="Q2">Q2 (4-6月)</a-select-option>
+              <a-select-option value="Q3">Q3 (7-9月)</a-select-option>
+              <a-select-option value="Q4">Q4 (10-12月)</a-select-option>
+            </a-select>
+            <a-select
+              v-else-if="param.type === 'month'"
+              v-model:value="testParams[param.name]"
+              placeholder="选择月份"
+            >
+              <a-select-option value="2025-12">2025年12月</a-select-option>
+              <a-select-option value="2025-11">2025年11月</a-select-option>
+              <a-select-option value="2025-10">2025年10月</a-select-option>
+            </a-select>
+          </a-form-item>
+        </a-form>
+
+        <div class="formula-preview" style="margin-top: 16px;">
+          <h4>将执行的SQL公式：</h4>
+          <div class="code-block" style="margin-top: 8px;">
+            <pre>{{ selectedMetric.formula_full }}</pre>
+          </div>
+        </div>
+      </div>
+    </a-modal>
+
+    <!-- 公式详情模态框 -->
+    <a-modal
+      v-model:visible="formulaModalVisible"
+      title="计算公式详情"
+      width="900px"
+      :footer="null"
+    >
+      <div v-if="selectedMetric" class="formula-modal">
+        <a-descriptions :column="2" bordered size="small">
+          <a-descriptions-item label="指标名称" :span="2">
+            {{ selectedMetric.metric_name }}
+          </a-descriptions-item>
+          <a-descriptions-item label="数据来源">
+            {{ selectedMetric.data_source }}
+          </a-descriptions-item>
+          <a-descriptions-item label="计算类型">
+            {{ selectedMetric.calculation_type }}
+          </a-descriptions-item>
+        </a-descriptions>
+
+        <div class="modal-section">
+          <h4>完整计算公式</h4>
+          <div class="code-block">
+            <pre>{{ selectedMetric.formula_full }}</pre>
+          </div>
         </div>
 
-        <a-divider>参数说明</a-divider>
-        <a-table
-          :columns="paramColumns"
-          :data-source="selectedMetric.params"
-          :pagination="false"
-          size="small"
-        />
+        <div class="modal-section">
+          <h4>参数说明</h4>
+          <a-table
+            :columns="paramColumns"
+            :data-source="selectedMetric.params"
+            :pagination="false"
+            size="small"
+          />
+        </div>
       </div>
     </a-modal>
   </div>
@@ -234,18 +385,27 @@ import {
   ClockCircleOutlined,
   UserOutlined,
   CodeOutlined,
-  LineChartOutlined,
   ArrowUpOutlined,
   ArrowDownOutlined,
-  DownOutlined,
   EyeOutlined,
   HistoryOutlined,
   EditOutlined,
-  DeleteOutlined
+  DeleteOutlined,
+  MoreOutlined,
+  CheckCircleOutlined
 } from '@ant-design/icons-vue'
 
 // 当前分类
 const activeCategory = ref('all')
+
+// 分类配置
+const categories = computed(() => [
+  { key: 'all', name: '全部指标', icon: '📊', count: metrics.value.length },
+  { key: 'sales', name: '销售类', icon: '💰', count: metrics.value.filter(m => m.category === 'sales').length },
+  { key: 'production', name: '生产类', icon: '🏭', count: metrics.value.filter(m => m.category === 'production').length },
+  { key: 'quality', name: '质量类', icon: '✅', count: metrics.value.filter(m => m.category === 'quality').length },
+  { key: 'attendance', name: '考勤类', icon: '📅', count: metrics.value.filter(m => m.category === 'attendance').length }
+])
 
 // Mock KPI指标数据
 const metrics = ref([
@@ -497,25 +657,42 @@ const filteredMetrics = computed(() => {
 
 // 模态框
 const formulaModalVisible = ref(false)
+const createModalVisible = ref(false)
+const testCalcModalVisible = ref(false)
 const selectedMetric = ref(null)
+
+// 新建指标表单数据
+const newMetric = ref({
+  name: '',
+  category: '',
+  description: '',
+  dataSource: '',
+  calculationType: '',
+  formula: '',
+  refreshFrequency: '每日09:00',
+  owner: ''
+})
+
+// 试算参数
+const testParams = ref({})
 
 // 参数表格列
 const paramColumns = [
-  { title: '参数名', dataIndex: 'name', key: 'name' },
-  { title: '类型', dataIndex: 'type', key: 'type' },
-  { title: '必填', dataIndex: 'required', key: 'required', customRender: ({ text }) => text ? '是' : '否' },
+  { title: '参数名', dataIndex: 'name', key: 'name', width: 120 },
+  { title: '类型', dataIndex: 'type', key: 'type', width: 100 },
+  { title: '必填', dataIndex: 'required', key: 'required', width: 80, customRender: ({ text }) => text ? '是' : '否' },
   { title: '说明', dataIndex: 'description', key: 'description' }
 ]
 
 // 工具方法
-const getCategoryColor = (category) => {
-  const colors = {
-    sales: '#1890ff',
-    production: '#52c41a',
-    quality: '#faad14',
-    attendance: '#722ed1'
+const getCategoryGradient = (category) => {
+  const gradients = {
+    sales: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    production: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    quality: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    attendance: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
   }
-  return colors[category] || '#d9d9d9'
+  return gradients[category] || 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'
 }
 
 const getCategoryIcon = (category) => {
@@ -540,7 +717,51 @@ const getCategoryName = (category) => {
 
 // 操作方法
 const createMetric = () => {
-  message.info('打开创建KPI指标对话框 (Demo)')
+  // 重置表单
+  newMetric.value = {
+    name: '',
+    category: '',
+    description: '',
+    dataSource: '',
+    calculationType: '',
+    formula: '',
+    refreshFrequency: '每日09:00',
+    owner: ''
+  }
+  createModalVisible.value = true
+}
+
+const handleCreateMetric = () => {
+  // 验证表单
+  if (!newMetric.value.name || !newMetric.value.category || !newMetric.value.formula) {
+    message.warning('请填写必填字段')
+    return
+  }
+
+  // 模拟创建
+  message.loading('正在创建指标...', 1.5)
+  setTimeout(() => {
+    message.success(`指标"${newMetric.value.name}"创建成功！`)
+    createModalVisible.value = false
+
+    // 添加到指标列表
+    const newId = `KPI_${Date.now()}`
+    metrics.value.unshift({
+      metric_id: newId,
+      metric_name: newMetric.value.name,
+      category: newMetric.value.category,
+      description: newMetric.value.description,
+      data_source: newMetric.value.dataSource,
+      calculation_type: newMetric.value.calculationType,
+      refresh_frequency: newMetric.value.refreshFrequency,
+      owner: newMetric.value.owner,
+      is_active: true,
+      formula_preview: newMetric.value.formula.substring(0, 50) + '...',
+      formula_full: newMetric.value.formula,
+      params: [],
+      last_calculation: null
+    })
+  }, 1500)
 }
 
 const batchCalculate = () => {
@@ -551,10 +772,47 @@ const batchCalculate = () => {
 }
 
 const testCalculate = (metric) => {
-  message.loading(`正在试算 "${metric.metric_name}"...`, 1.5)
+  selectedMetric.value = metric
+  // 初始化试算参数
+  testParams.value = {}
+  if (metric.params) {
+    metric.params.forEach(param => {
+      testParams.value[param.name] = ''
+    })
+  }
+  testCalcModalVisible.value = true
+}
+
+const handleTestCalculate = () => {
+  // 验证参数
+  const requiredParams = selectedMetric.value.params?.filter(p => p.required) || []
+  const missingParams = requiredParams.filter(p => !testParams.value[p.name])
+
+  if (missingParams.length > 0) {
+    message.warning('请填写所有必填参数')
+    return
+  }
+
+  // 模拟执行试算
+  message.loading(`正在执行SQL查询并计算"${selectedMetric.value.metric_name}"...`, 2)
+
   setTimeout(() => {
-    message.success(`试算成功！${metric.metric_name}: ${metric.last_calculation.value}${metric.last_calculation.unit}`)
-  }, 1500)
+    // 随机生成一个结果
+    const randomValue = (Math.random() * 100).toFixed(1)
+    const randomChange = (Math.random() * 10 - 5).toFixed(1)
+
+    message.success(`试算成功！${selectedMetric.value.metric_name}: ${randomValue}${selectedMetric.value.last_calculation?.unit || '%'}`)
+
+    // 更新试算结果
+    if (selectedMetric.value.last_calculation) {
+      selectedMetric.value.last_calculation.value = randomValue
+      selectedMetric.value.last_calculation.change = `${randomChange > 0 ? '+' : ''}${randomChange}${selectedMetric.value.last_calculation.unit}`
+      selectedMetric.value.last_calculation.trend = randomChange > 0 ? 'up' : 'down'
+      selectedMetric.value.last_calculation.time = new Date().toLocaleString('zh-CN')
+    }
+
+    testCalcModalVisible.value = false
+  }, 2000)
 }
 
 const viewFormula = (metric) => {
@@ -577,154 +835,367 @@ const deleteMetric = (metric) => {
 
 <style scoped>
 .kpi-metric-dict {
-  padding: 24px;
-  background: #f5f5f5;
+  padding: 32px;
+  background: #f0f2f5;
   min-height: calc(100vh - 64px);
 }
 
+/* 页面头部 */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.header-content h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.header-content p {
+  margin: 8px 0 0 0;
+  font-size: 14px;
+  color: #8c8c8c;
+}
+
+.header-desc {
+  line-height: 1.8;
+  margin-top: 12px !important;
+}
+
+.header-desc strong {
+  color: #1890ff;
+  font-weight: 600;
+}
+
+/* 分类标签 */
+.category-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.category-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: white;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.category-tab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.category-tab.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+}
+
+.tab-icon {
+  font-size: 18px;
+}
+
+.tab-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tab-count {
+  padding: 2px 8px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.category-tab.active .tab-count {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* 指标网格 */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 24px;
+}
+
+/* 指标卡片 */
 .metric-card {
-  height: 100%;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   transition: all 0.3s;
 }
 
 .metric-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-.metric-disabled {
+.metric-card.disabled {
   opacity: 0.6;
+  filter: grayscale(0.5);
 }
 
-.metric-header {
+/* 卡片头部 */
+.card-header {
+  padding: 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
   display: flex;
   align-items: center;
   gap: 12px;
-}
-
-.metric-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-.metric-title {
   flex: 1;
   min-width: 0;
 }
 
-.metric-title > div:first-child {
-  font-size: 16px;
+.metric-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.metric-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.metric-info h3 {
+  margin: 0;
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 4px;
+  color: white;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.metric-content {
-  font-size: 13px;
+.metric-category {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  font-size: 12px;
+  color: white;
+}
+
+/* 卡片内容 */
+.card-body {
+  padding: 20px;
 }
 
 .metric-description {
-  color: #666;
+  margin: 0 0 16px 0;
+  font-size: 13px;
   line-height: 1.6;
-  margin-bottom: 8px;
+  color: #666;
 }
 
-.metric-info-item {
+/* 数据流说明 */
+.data-flow-info {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  gap: 8px;
+  padding: 12px;
+  background: #f0f5ff;
+  border-radius: 8px;
+  margin-bottom: 16px;
   font-size: 12px;
+  flex-wrap: wrap;
 }
 
-.metric-info-item .label {
-  color: #999;
-  margin-right: 4px;
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #262626;
 }
 
-.metric-info-item .value {
-  color: #333;
+.flow-step strong {
+  color: #1890ff;
+  font-weight: 600;
+}
+
+.flow-icon {
+  font-size: 14px;
+  color: #1890ff;
+}
+
+.flow-arrow {
+  color: #8c8c8c;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* 试算结果 */
+.result-section {
+  padding: 16px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.result-label {
+  font-size: 12px;
+  color: #595959;
+  margin-bottom: 8px;
   font-weight: 500;
 }
 
-.formula-preview {
-  background: #f9f9f9;
-  border: 1px dashed #d9d9d9;
-  border-radius: 4px;
-  padding: 8px;
-  margin-top: 8px;
-}
-
-.formula-label {
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 4px;
+.result-display {
   display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.formula-content pre {
-  margin: 0;
-  font-size: 11px;
-  color: #1890ff;
-  font-family: 'Courier New', monospace;
-  white-space: pre-wrap;
-  word-break: break-all;
-}
-
-.calculation-result {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border-radius: 8px;
-  padding: 12px;
-  margin-top: 12px;
-}
-
-.result-header {
-  font-size: 12px;
-  opacity: 0.9;
+  align-items: baseline;
+  gap: 6px;
   margin-bottom: 8px;
 }
 
 .result-value {
-  display: flex;
-  align-items: baseline;
-  margin-bottom: 4px;
-}
-
-.value-number {
-  font-size: 32px;
+  font-size: 36px;
   font-weight: 700;
+  color: #1a1a1a;
   line-height: 1;
 }
 
-.value-unit {
-  font-size: 16px;
-  margin-left: 4px;
-  opacity: 0.9;
+.result-unit {
+  font-size: 18px;
+  color: #595959;
+  font-weight: 500;
 }
 
 .result-time {
   font-size: 11px;
-  opacity: 0.8;
+  color: #8c8c8c;
+}
+
+/* 指标详情 */
+.metric-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.detail-item {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+.detail-icon {
+  font-size: 16px;
+  color: #1890ff;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.detail-label {
+  font-size: 11px;
+  color: #8c8c8c;
+}
+
+.detail-value {
+  font-size: 12px;
+  color: #262626;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 公式区域 */
+.formula-section {
+  background: #f9fafb;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.formula-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #595959;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.formula-code {
+  font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+  font-size: 11px;
+  color: #1890ff;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+/* 卡片底部 */
+.card-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  gap: 8px;
+}
+
+/* 模态框 */
+.formula-modal {
+  padding: 8px 0;
+}
+
+.modal-section {
+  margin-top: 24px;
+}
+
+.modal-section h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #262626;
 }
 
 .code-block {
   background: #1e1e1e;
-  color: #00ff00;
+  color: #d4d4d4;
   padding: 16px;
-  border-radius: 4px;
-  font-family: 'Courier New', monospace;
+  border-radius: 8px;
+  font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
   font-size: 12px;
   overflow-x: auto;
+  line-height: 1.6;
 }
 
 .code-block pre {
@@ -732,7 +1203,30 @@ const deleteMetric = (metric) => {
   white-space: pre-wrap;
 }
 
-:deep(.ant-card-head) {
-  border-bottom: 2px solid #f0f0f0;
+/* 响应式 */
+@media (max-width: 1200px) {
+  .metrics-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .kpi-metric-dict {
+    padding: 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-details {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

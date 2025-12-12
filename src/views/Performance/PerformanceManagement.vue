@@ -16,49 +16,49 @@
     </div>
 
     <!-- Performance Overview Cards -->
-    <a-row :gutter="16" style="margin-bottom: 24px;">
+    <a-row :gutter="12" style="margin-bottom: 16px;">
       <a-col :span="6">
-        <a-card>
+        <a-card size="small" :body-style="{ padding: '16px' }">
           <a-statistic
             title="团队平均分"
             :value="performanceStats.averageScore"
             :precision="1"
             suffix="/100"
-            :value-style="{ color: '#1890ff' }"
+            :value-style="{ color: '#1890ff', fontSize: '20px' }"
           >
             <template #prefix><TrophyOutlined /></template>
           </a-statistic>
         </a-card>
       </a-col>
       <a-col :span="6">
-        <a-card>
+        <a-card size="small" :body-style="{ padding: '16px' }">
           <a-statistic
             title="OKR完成率"
             :value="performanceStats.okrCompletionRate"
             suffix="%"
-            :value-style="{ color: '#52c41a' }"
+            :value-style="{ color: '#52c41a', fontSize: '20px' }"
           >
             <template #prefix><CheckCircleOutlined /></template>
           </a-statistic>
         </a-card>
       </a-col>
       <a-col :span="6">
-        <a-card>
+        <a-card size="small" :body-style="{ padding: '16px' }">
           <a-statistic
             title="待评审人数"
             :value="performanceStats.pendingReviews"
-            :value-style="{ color: '#faad14' }"
+            :value-style="{ color: '#faad14', fontSize: '20px' }"
           >
             <template #prefix><ClockCircleOutlined /></template>
           </a-statistic>
         </a-card>
       </a-col>
       <a-col :span="6">
-        <a-card>
+        <a-card size="small" :body-style="{ padding: '16px' }">
           <a-statistic
             title="已完成评审"
             :value="performanceStats.completedReviews"
-            :value-style="{ color: '#52c41a' }"
+            :value-style="{ color: '#52c41a', fontSize: '20px' }"
           >
             <template #prefix><FileTextOutlined /></template>
           </a-statistic>
@@ -73,6 +73,8 @@
         :data-source="performanceList"
         :pagination="{ pageSize: 10 }"
         :scroll="{ x: 1400 }"
+        :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
+        size="small"
       >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'name'">
@@ -193,6 +195,63 @@
       </div>
     </a-modal>
 
+    <!-- Batch Review Modal -->
+    <a-modal
+      v-model:open="showBatchReviewModal"
+      title="批量评审"
+      width="800px"
+      @ok="handleBatchReview"
+      :confirm-loading="reviewing"
+    >
+      <a-alert
+        message="批量评审提示"
+        description="将对选中的待评审员工应用相同的评审标准"
+        type="info"
+        show-icon
+        style="margin-bottom: 16px"
+      />
+
+      <div style="margin-bottom: 16px">
+        <strong>已选择 {{ selectedRowKeys.length }} 名员工：</strong>
+        <a-tag v-for="id in selectedRowKeys" :key="id" color="blue" style="margin: 4px">
+          {{ performanceList.find(p => p.id === id)?.name }}
+        </a-tag>
+      </div>
+
+      <a-form :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
+        <a-form-item label="能力评分" required>
+          <a-rate v-model:value="batchReviewForm.rating" allow-half />
+          <span style="margin-left: 12px; color: #999;">{{ batchReviewForm.rating }} / 5</span>
+        </a-form-item>
+
+        <a-form-item label="态度评分">
+          <a-slider
+            v-model:value="batchReviewForm.attitude_score"
+            :min="0"
+            :max="20"
+            :marks="{ 0: '0', 5: '5', 10: '10', 15: '15', 20: '20' }"
+          />
+        </a-form-item>
+
+        <a-form-item label="协作评分">
+          <a-slider
+            v-model:value="batchReviewForm.collaboration_score"
+            :min="0"
+            :max="20"
+            :marks="{ 0: '0', 5: '5', 10: '10', 15: '15', 20: '20' }"
+          />
+        </a-form-item>
+
+        <a-form-item label="评审意见">
+          <a-textarea
+            v-model:value="batchReviewForm.comment"
+            :rows="4"
+            placeholder="请输入统一评审意见"
+          />
+        </a-form-item>
+      </a-form>
+    </a-modal>
+
     <!-- Detail Modal -->
     <a-modal
       v-model:open="showDetailModal"
@@ -282,12 +341,20 @@ const showBatchReviewModal = ref(false)
 const reviewing = ref(false)
 const currentReview = ref(null)
 const currentDetail = ref(null)
+const selectedRowKeys = ref([])
 
 const reviewForm = ref({
   rating: 4,
   attitude_score: 15,
   collaboration_score: 15,
   total_score: 85,
+  comment: ''
+})
+
+const batchReviewForm = ref({
+  rating: 4,
+  attitude_score: 15,
+  collaboration_score: 15,
   comment: ''
 })
 
@@ -333,6 +400,132 @@ const performanceList = ref([
     rating: null,
     status: 'pending',
     comment: null
+  },
+  {
+    id: 4,
+    user_id: 8,
+    name: '李明',
+    department: '销售部',
+    position: '销售经理',
+    okr_score: 82,
+    attitude_score: 17,
+    collaboration_score: 18,
+    total_score: 89,
+    rating: 4.5,
+    status: 'completed',
+    comment: '销售业绩出色，团队管理有方。'
+  },
+  {
+    id: 5,
+    user_id: 9,
+    name: '王芳',
+    department: '研发部',
+    position: '前端工程师',
+    okr_score: 78,
+    attitude_score: null,
+    collaboration_score: null,
+    total_score: null,
+    rating: null,
+    status: 'pending',
+    comment: null
+  },
+  {
+    id: 6,
+    user_id: 10,
+    name: '陈佳',
+    department: '市场部',
+    position: '市场专员',
+    okr_score: 68,
+    attitude_score: 14,
+    collaboration_score: 15,
+    total_score: 80,
+    rating: 4,
+    status: 'completed',
+    comment: '市场推广执行到位，需加强数据分析能力。'
+  },
+  {
+    id: 7,
+    user_id: 11,
+    name: '刘强',
+    department: '生产部',
+    position: '生产主管',
+    okr_score: 85,
+    attitude_score: 18,
+    collaboration_score: 17,
+    total_score: 90,
+    rating: 4.5,
+    status: 'completed',
+    comment: '生产效率提升显著，安全管理到位。'
+  },
+  {
+    id: 8,
+    user_id: 12,
+    name: '周敏',
+    department: '质量部',
+    position: '质检员',
+    okr_score: 76,
+    attitude_score: null,
+    collaboration_score: null,
+    total_score: null,
+    rating: null,
+    status: 'pending',
+    comment: null
+  },
+  {
+    id: 9,
+    user_id: 13,
+    name: '吴勇',
+    department: '研发部',
+    position: '后端工程师',
+    okr_score: 91,
+    attitude_score: 19,
+    collaboration_score: 18,
+    total_score: 94,
+    rating: 5,
+    status: 'completed',
+    comment: '技术扎实，代码质量高，是团队技术骨干。'
+  },
+  {
+    id: 10,
+    user_id: 14,
+    name: '郑丽',
+    department: '财务部',
+    position: '会计',
+    okr_score: 70,
+    attitude_score: 15,
+    collaboration_score: 16,
+    total_score: 82,
+    rating: 4,
+    status: 'completed',
+    comment: '账务处理准确，工作细致认真。'
+  },
+  {
+    id: 11,
+    user_id: 15,
+    name: '黄涛',
+    department: '采购部',
+    position: '采购专员',
+    okr_score: 74,
+    attitude_score: null,
+    collaboration_score: null,
+    total_score: null,
+    rating: null,
+    status: 'pending',
+    comment: null
+  },
+  {
+    id: 12,
+    user_id: 16,
+    name: '徐静',
+    department: '客服部',
+    position: '客服主管',
+    okr_score: 79,
+    attitude_score: 17,
+    collaboration_score: 18,
+    total_score: 87,
+    rating: 4.5,
+    status: 'completed',
+    comment: '客户满意度高，团队管理有序。'
   }
 ])
 
@@ -451,6 +644,55 @@ const handleReview = async () => {
   }
 }
 
+const handleBatchReview = async () => {
+  if (selectedRowKeys.value.length === 0) {
+    message.warning('请至少选择一名员工')
+    return
+  }
+
+  reviewing.value = true
+
+  try {
+    debugStore.log('info', `📊 批量评审 ${selectedRowKeys.value.length} 名员工`)
+    await delay(300)
+
+    for (const id of selectedRowKeys.value) {
+      const record = performanceList.value.find(p => p.id === id)
+      if (record && record.status === 'pending') {
+        const totalScore = Math.round(record.okr_score * 0.6 + batchReviewForm.value.attitude_score + batchReviewForm.value.collaboration_score)
+
+        record.rating = batchReviewForm.value.rating
+        record.attitude_score = batchReviewForm.value.attitude_score
+        record.collaboration_score = batchReviewForm.value.collaboration_score
+        record.total_score = totalScore
+        record.comment = batchReviewForm.value.comment
+        record.status = 'completed'
+
+        debugStore.log('success', `✓ ${record.name}: ${totalScore}分`)
+        await delay(150)
+      }
+    }
+
+    debugStore.log('success', '✓ 批量评审完成')
+    await delay(200)
+
+    showBatchReviewModal.value = false
+    selectedRowKeys.value = []
+    message.success(`成功评审 ${selectedRowKeys.value.length} 名员工`)
+
+  } catch (error) {
+    debugStore.log('error', `批量评审失败: ${error.message}`)
+    message.error('批量评审失败，请重试')
+  } finally {
+    reviewing.value = false
+  }
+}
+
+const onSelectChange = (keys) => {
+  selectedRowKeys.value = keys
+  debugStore.log('info', `已选择 ${keys.length} 名员工`)
+}
+
 onMounted(() => {
   loadPerformanceData()
 })
@@ -458,39 +700,65 @@ onMounted(() => {
 
 <style scoped>
 .performance-page {
-  padding: 24px;
-  max-width: 1600px;
+  padding: 12px 16px;
+  max-width: 100%;
 }
 
 .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .page-header h2 {
   margin: 0;
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 500;
+  color: #2c3e50;
 }
 
 .score-item {
   text-align: center;
-  padding: 16px;
+  padding: 12px;
   background: #fafafa;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 .score-label {
-  font-size: 14px;
+  font-size: 12px;
   color: #999;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .score-value {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 500;
   color: #1890ff;
+}
+
+/* 压缩表格样式 */
+:deep(.ant-table-small) {
+  font-size: 13px;
+}
+
+:deep(.ant-table-small .ant-table-tbody > tr > td) {
+  padding: 8px 12px;
+}
+
+:deep(.ant-table-small .ant-table-thead > tr > th) {
+  padding: 10px 12px;
+  font-weight: 600;
+}
+
+:deep(.ant-table-small .ant-avatar) {
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  font-size: 13px;
+}
+
+:deep(.ant-progress-line) {
+  margin-bottom: 0;
 }
 </style>
