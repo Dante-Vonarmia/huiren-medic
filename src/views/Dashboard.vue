@@ -39,7 +39,7 @@
           <a-menu-item v-if="canAccessPerformance" key="/performance-period">
             <span>绩效周期</span>
           </a-menu-item>
-          <a-menu-item v-if="canAccessPerformance" key="/kpi-dict">
+          <a-menu-item v-if="canAccessKPI" key="/kpi-dict">
             <span>KPI字典</span>
           </a-menu-item>
         </a-sub-menu>
@@ -48,25 +48,25 @@
         <a-sub-menu key="business">
           <template #icon><AppstoreOutlined /></template>
           <template #title>业务场景</template>
-          <a-menu-item key="/workorder">
+          <a-menu-item v-if="canAccessWorkOrder" key="/workorder">
             <span>🏭 生产工单</span>
           </a-menu-item>
-          <a-menu-item key="/expense">
+          <a-menu-item v-if="canAccessExpense" key="/expense">
             <span>💰 费用报销</span>
           </a-menu-item>
-          <a-menu-item key="/purchase">
+          <a-menu-item v-if="canAccessPurchase" key="/purchase">
             <span>🛒 采购申请</span>
           </a-menu-item>
-          <a-menu-item key="/sales">
+          <a-menu-item v-if="canAccessSales" key="/sales">
             <span>📈 销售订单</span>
           </a-menu-item>
-          <a-menu-item key="/inventory">
+          <a-menu-item v-if="canAccessInventory" key="/inventory">
             <span>📦 库存管理</span>
           </a-menu-item>
-          <a-menu-item key="/quality">
+          <a-menu-item v-if="canAccessQuality" key="/quality">
             <span>✅ 质量检验</span>
           </a-menu-item>
-          <a-menu-item key="/customer-service">
+          <a-menu-item v-if="canAccessCustomerService" key="/customer-service">
             <span>🎧 客户服务</span>
           </a-menu-item>
           <a-menu-item key="/leave">
@@ -75,7 +75,7 @@
         </a-sub-menu>
 
         <!-- 数据集成（仅管理员） -->
-        <a-sub-menu v-if="isAdmin" key="data">
+        <a-sub-menu v-if="canAccessDataSource" key="data">
           <template #icon><CloudSyncOutlined /></template>
           <template #title>数据集成</template>
           <a-menu-item key="/datasource">
@@ -90,7 +90,7 @@
         </a-sub-menu>
 
         <!-- 低代码设计器 -->
-        <a-sub-menu v-if="canAccessPerformance" key="designer">
+        <a-sub-menu v-if="canAccessLowCodeTemplates" key="designer">
           <template #icon><FormOutlined /></template>
           <template #title>低代码设计器</template>
           <a-menu-item key="/form-designer">
@@ -105,7 +105,7 @@
         </a-sub-menu>
 
         <!-- 低代码管理 -->
-        <a-sub-menu v-if="canAccessPerformance" key="lowcode">
+        <a-sub-menu v-if="canAccessLowCodeTemplates" key="lowcode">
           <template #icon><BuildOutlined /></template>
           <template #title>低代码管理</template>
           <a-menu-item key="/form-templates">
@@ -186,6 +186,7 @@
 import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
+import { usePermissions } from '../composables/usePermissions'
 import { Modal, message } from 'ant-design-vue'
 import {
   DashboardOutlined,
@@ -215,6 +216,23 @@ import DebugWindow from '../components/DebugWindow.vue'
 const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
+
+// 使用权限管理
+const {
+  isAdmin,
+  canAccessPerformance,
+  canAccessKPI,
+  canAccessDataSource,
+  canAccessLowCodeTemplates,
+  canAccessWorkOrder,
+  canAccessExpense,
+  canAccessPurchase,
+  canAccessSales,
+  canAccessInventory,
+  canAccessQuality,
+  canAccessCustomerService,
+  canAccessProduction
+} = usePermissions()
 
 const selectedKeys = ref([route.path])
 const openKeys = ref([])
@@ -264,15 +282,6 @@ watch(() => route.path, (newPath) => {
 
 const currentPageTitle = computed(() => {
   return route.meta.title || '首页'
-})
-
-const isAdmin = computed(() => {
-  return userStore.currentUser?.role === 'admin'
-})
-
-const canAccessPerformance = computed(() => {
-  const role = userStore.currentUser?.role
-  return ['manager', 'hr', 'admin', 'leader'].includes(role)
 })
 
 const getRoleText = (role) => {
